@@ -29,16 +29,16 @@ namespace SlideRead.Pages
             InitializeComponent();
             tromboneConfig = Deserialisation();
             AllNotes = CreateNotes(tromboneConfig);
-            GetNewQuestion();
         }
         protected override void OnAppearing()
         {
             base.OnAppearing();
+            GetNewQuestion();
             topGrid.Opacity = 0;
             topGrid.FadeTo(1, 350);
         }
         //Request a new question
-        private void GetNewQuestion()
+        private async void GetNewQuestion()
         {
             if (timer == null)
             {
@@ -131,7 +131,12 @@ namespace SlideRead.Pages
             for (int i=0; i<4; i++)
             {
                 string selected = answers[random.Next(0, answers.Count - 1)];
-                ButtonStackLayout.FindByName<Button>("SelectionBtn" + (i + 1).ToString()).Text = selected;
+                Console.WriteLine("Selected: " + selected);
+                await Device.InvokeOnMainThreadAsync(() =>
+                {
+                    Console.WriteLine("Roger" + i.ToString());
+                    ButtonStackLayout.FindByName<Button>("SelectionBtn" + (i + 1).ToString()).Text = selected;
+                });
                 answers.Remove(selected);
             }
 
@@ -139,7 +144,10 @@ namespace SlideRead.Pages
             currentAnswer = pos.ToString();
             AnswerNote = selection;
             answeredQuestions++;
-            ProgressBar.ProgressTo((double)answeredQuestions/settings.questions, 800, Easing.SinOut);
+            await Device.InvokeOnMainThreadAsync(() =>
+            {
+                ProgressBar.ProgressTo((double)answeredQuestions / settings.questions, 800, Easing.SinOut);
+            });
 
             //Start timer
             timer.Start();
@@ -221,6 +229,7 @@ namespace SlideRead.Pages
                 score++;
                 if (answeredQuestions == settings.questions)
                 {
+                    Console.WriteLine(score.ToString() + "/" + settings.questions.ToString());
                     await Application.Current.MainPage.Navigation.PopAsync(false);
                 }
                 GetNewQuestion();
@@ -230,6 +239,7 @@ namespace SlideRead.Pages
                 Console.WriteLine("CORRECT: " + AnswerNote + " " + currentAnswer);
                 if (answeredQuestions == settings.questions)
                 {
+                    Console.WriteLine(score.ToString() + "/" + settings.questions.ToString());
                     await Application.Current.MainPage.Navigation.PopAsync(false);
                 }
                 GetNewQuestion();
