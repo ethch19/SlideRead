@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:Control="clr-namespace:SlideRead.Controls"
+             x:Class="SlideRead.Controls.DropdownMenu">
+    <ContentView.Content>
+        <Grid x:Name="extensionGrid" AnchorX="0" AnchorY="0" Margin="0,0,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition x:Name="defineRow" Height="125"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+            </Grid.ColumnDefinitions>
+            <Image Grid.Row="0" Grid.Column="0" x:Name="baseImage" Source="dropdownexpandedbase.png" Aspect="AspectFit"/>
+            <StackLayout x:Name="stackSelectionGrid" Grid.Row="0" Grid.Column="0" Orientation="Vertical" Spacing="0" Margin="0,41,0,0">
+                <Grid x:Name="SelectionGrid1" VerticalOptions="Center" HorizontalOptions="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="35"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="90"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Grid.Row="0" Grid.Column="0" Source="dropdowninnerselection.png" Aspect="AspectFill" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Button Grid.Row="0" Grid.Column="0" x:Name="SelectionButton1" Text="" BorderColor="Transparent" BackgroundColor="Transparent" TextColor="#FFFFFF" HorizontalOptions="Center" VerticalOptions="Center" FontFamily="Roboto-Medium"/>
+                </Grid>
+                <Grid x:Name="SelectionGrid2" VerticalOptions="Center" HorizontalOptions="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="35"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="90"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Grid.Row="0" Grid.Column="0" Source="dropdowninnerselection.png" Aspect="AspectFill" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Button Grid.Row="0" Grid.Column="0" x:Name="SelectionButton2" Text="" BorderColor="Transparent" BackgroundColor="Transparent" TextColor="#FFFFFF" HorizontalOptions="Center" VerticalOptions="Center" FontFamily="Roboto-Medium"/>
+                </Grid>
+            </StackLayout>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

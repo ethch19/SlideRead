@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SlideRead.MainPage"
+             BackgroundImageSource="background.png"
+             NavigationPage.HasNavigationBar="False">
+    <Grid x:Name="grid" VerticalOptions="FillAndExpand" RowSpacing="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="1.5*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Image Grid.Row="0" Grid.Column="0" Source="title.png" Aspect="AspectFill" Margin="0,0,0,70" Scale="1.1"/>
+        <StackLayout Grid.Row="1" Grid.Column="0"  Orientation="Vertical" Spacing="20" Margin="0,20,0,0">
+            <ImageButton BackgroundColor="Transparent" Source="trombonebtn.png" WidthRequest="270" Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center" Margin="5,0,0,0" Clicked="TromboneBtnClicked"/>
+            <ImageButton BackgroundColor="Transparent" Source="generalbtn.png" WidthRequest="270" Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Start"/>
+        </StackLayout>
+        <StackLayout Grid.Row="2" Grid.Column="0" Orientation="Vertical" Spacing="30" VerticalOptions="End" Padding="0,0,0,25">
+            <ImageButton BackgroundColor="Transparent" Source="settingsbtn.png" HeightRequest="30" WidthRequest="100" Aspect="AspectFit" Clicked="SettingsBtnClicked"/>
+            <Image Source="credits.png" HeightRequest="30" WidthRequest="150" Aspect="AspectFit"/>
+        </StackLayout>
+    </Grid>
+
+</ContentPage>

@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SlideRead.Controls.DropdownButton">
+  <ContentView.Content>
+        <Grid AnchorX="0" AnchorY="0" VerticalOptions="Start" HorizontalOptions="Start">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+            </Grid.ColumnDefinitions>
+            <Image Grid.Row="0" Grid.Column="0" Source="dropdownbase.png" Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center"/>
+            <Button Grid.Row="0" Grid.Column="0" x:Name="PlaceHolderButton" Text="" BorderColor="Transparent" BackgroundColor="Transparent" TextColor="#FFFFFF" FontFamily="Roboto-Medium" HorizontalOptions="Center" VerticalOptions="Center"/>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

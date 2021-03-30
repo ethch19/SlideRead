@@ -1,0 +1,10 @@
+{
+	"CenOct": 3,
+	"EnlargeRange": [
+		[ 0, 4 , 2],
+		[ 6, 6 , 4]
+	],
+	"Octave": [ "C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B" ],
+	"CKeyOctave": ["C", "D", "E", "F", "G", "A", "B"],
+	"MaxPos": [7,7,5,4,3]
+}
