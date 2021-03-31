@@ -11,13 +11,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="JSON\ClefConfig.json" />
     <None Remove="Roboto-Light.ttf" />
     <None Remove="Roboto-Medium.ttf" />
     <None Remove="Roboto-Thin.ttf" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="JSON\TromboneSlidePos.json" />
+    <EmbeddedResource Include="JSON\ClefConfig.json" />
+    <EmbeddedResource Include="JSON\TromboneConfig.json" />
     <EmbeddedResource Include="Fonts\Roboto-Light.ttf" />
     <EmbeddedResource Include="Fonts\Roboto-Medium.ttf" />
     <EmbeddedResource Include="Fonts\Roboto-Thin.ttf" />

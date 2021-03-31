@@ -14356,109 +14356,109 @@ namespace SlideRead.Droid
 			public const int abc_vector_test = 2131165275;
 			
 			// aapt resource value: 0x7F07005C
-			public const int AltoClef = 2131165276;
+			public const int avd_hide_password = 2131165276;
 			
 			// aapt resource value: 0x7F07005D
-			public const int avd_hide_password = 2131165277;
+			public const int avd_show_password = 2131165277;
 			
 			// aapt resource value: 0x7F07005E
-			public const int avd_show_password = 2131165278;
+			public const int backbtn = 2131165278;
 			
 			// aapt resource value: 0x7F07005F
-			public const int backbtn = 2131165279;
+			public const int background = 2131165279;
 			
 			// aapt resource value: 0x7F070060
-			public const int background = 2131165280;
+			public const int BassClef = 2131165280;
 			
 			// aapt resource value: 0x7F070061
-			public const int BassClef = 2131165281;
+			public const int btn_checkbox_checked_mtrl = 2131165281;
 			
 			// aapt resource value: 0x7F070062
-			public const int btn_checkbox_checked_mtrl = 2131165282;
+			public const int btn_checkbox_checked_to_unchecked_mtrl_animation = 2131165282;
 			
 			// aapt resource value: 0x7F070063
-			public const int btn_checkbox_checked_to_unchecked_mtrl_animation = 2131165283;
+			public const int btn_checkbox_unchecked_mtrl = 2131165283;
 			
 			// aapt resource value: 0x7F070064
-			public const int btn_checkbox_unchecked_mtrl = 2131165284;
+			public const int btn_checkbox_unchecked_to_checked_mtrl_animation = 2131165284;
 			
 			// aapt resource value: 0x7F070065
-			public const int btn_checkbox_unchecked_to_checked_mtrl_animation = 2131165285;
+			public const int btn_radio_off_mtrl = 2131165285;
 			
 			// aapt resource value: 0x7F070066
-			public const int btn_radio_off_mtrl = 2131165286;
+			public const int btn_radio_off_to_on_mtrl_animation = 2131165286;
 			
 			// aapt resource value: 0x7F070067
-			public const int btn_radio_off_to_on_mtrl_animation = 2131165287;
+			public const int btn_radio_on_mtrl = 2131165287;
 			
 			// aapt resource value: 0x7F070068
-			public const int btn_radio_on_mtrl = 2131165288;
+			public const int btn_radio_on_to_off_mtrl_animation = 2131165288;
 			
 			// aapt resource value: 0x7F070069
-			public const int btn_radio_on_to_off_mtrl_animation = 2131165289;
+			public const int clef = 2131165289;
 			
 			// aapt resource value: 0x7F07006A
-			public const int clef = 2131165290;
+			public const int credits = 2131165290;
 			
 			// aapt resource value: 0x7F07006B
-			public const int credits = 2131165291;
+			public const int DarkenLayer = 2131165291;
 			
 			// aapt resource value: 0x7F07006C
-			public const int DarkenLayer = 2131165292;
+			public const int design_bottom_navigation_item_background = 2131165292;
 			
 			// aapt resource value: 0x7F07006D
-			public const int design_bottom_navigation_item_background = 2131165293;
+			public const int design_fab_background = 2131165293;
 			
 			// aapt resource value: 0x7F07006E
-			public const int design_fab_background = 2131165294;
+			public const int design_ic_visibility = 2131165294;
 			
 			// aapt resource value: 0x7F07006F
-			public const int design_ic_visibility = 2131165295;
+			public const int design_ic_visibility_off = 2131165295;
 			
 			// aapt resource value: 0x7F070070
-			public const int design_ic_visibility_off = 2131165296;
+			public const int design_password_eye = 2131165296;
 			
 			// aapt resource value: 0x7F070071
-			public const int design_password_eye = 2131165297;
+			public const int design_snackbar_background = 2131165297;
 			
 			// aapt resource value: 0x7F070072
-			public const int design_snackbar_background = 2131165298;
+			public const int dropdownbase = 2131165298;
 			
 			// aapt resource value: 0x7F070073
-			public const int dropdownbase = 2131165299;
+			public const int dropdownexpandedbase = 2131165299;
 			
 			// aapt resource value: 0x7F070074
-			public const int dropdownexpandedbase = 2131165300;
+			public const int dropdowninnerselection = 2131165300;
 			
 			// aapt resource value: 0x7F070075
-			public const int dropdowninnerselection = 2131165301;
+			public const int exitbtn = 2131165301;
 			
 			// aapt resource value: 0x7F070076
-			public const int exitbtn = 2131165302;
+			public const int flat = 2131165302;
 			
 			// aapt resource value: 0x7F070077
-			public const int flat = 2131165303;
+			public const int generalbtn = 2131165303;
 			
 			// aapt resource value: 0x7F070078
-			public const int generalbtn = 2131165304;
+			public const int ic_mtrl_checked_circle = 2131165304;
 			
 			// aapt resource value: 0x7F070079
-			public const int ic_mtrl_checked_circle = 2131165305;
+			public const int ic_mtrl_chip_checked_black = 2131165305;
 			
 			// aapt resource value: 0x7F07007A
-			public const int ic_mtrl_chip_checked_black = 2131165306;
+			public const int ic_mtrl_chip_checked_circle = 2131165306;
 			
 			// aapt resource value: 0x7F07007B
-			public const int ic_mtrl_chip_checked_circle = 2131165307;
+			public const int ic_mtrl_chip_close_circle = 2131165307;
 			
 			// aapt resource value: 0x7F07007C
-			public const int ic_mtrl_chip_close_circle = 2131165308;
+			public const int InstructionTrombone = 2131165308;
 			
 			// aapt resource value: 0x7F07007D
-			public const int InstructionTrombone = 2131165309;
+			public const int keysignatures = 2131165309;
 			
 			// aapt resource value: 0x7F07007E
-			public const int keysignatures = 2131165310;
+			public const int LedgerLine = 2131165310;
 			
 			// aapt resource value: 0x7F07007F
 			public const int material_ic_calendar_black_24dp = 2131165311;
@@ -14578,31 +14578,34 @@ namespace SlideRead.Droid
 			public const int Staff = 2131165349;
 			
 			// aapt resource value: 0x7F0700A6
-			public const int test_custom_background = 2131165350;
+			public const int TenorClef = 2131165350;
 			
 			// aapt resource value: 0x7F0700A7
-			public const int timelimit = 2131165351;
+			public const int test_custom_background = 2131165351;
 			
 			// aapt resource value: 0x7F0700A8
-			public const int title = 2131165352;
+			public const int timelimit = 2131165352;
 			
 			// aapt resource value: 0x7F0700A9
-			public const int tooltip_frame_dark = 2131165353;
+			public const int title = 2131165353;
 			
 			// aapt resource value: 0x7F0700AA
-			public const int tooltip_frame_light = 2131165354;
+			public const int tooltip_frame_dark = 2131165354;
 			
 			// aapt resource value: 0x7F0700AB
-			public const int trboneSelectionButton = 2131165355;
+			public const int tooltip_frame_light = 2131165355;
 			
 			// aapt resource value: 0x7F0700AC
-			public const int TrebleClef = 2131165356;
+			public const int trboneSelectionButton = 2131165356;
 			
 			// aapt resource value: 0x7F0700AD
-			public const int TromboneBackground = 2131165357;
+			public const int TrebleClef = 2131165357;
 			
 			// aapt resource value: 0x7F0700AE
-			public const int trombonebtn = 2131165358;
+			public const int TromboneBackground = 2131165358;
+			
+			// aapt resource value: 0x7F0700AF
+			public const int trombonebtn = 2131165359;
 			
 			static Drawable()
 			{
