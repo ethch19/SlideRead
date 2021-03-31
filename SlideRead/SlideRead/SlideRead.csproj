@@ -17,10 +17,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="TromboneSlidePos.json" />
-    <EmbeddedResource Include="Roboto-Light.ttf" />
-    <EmbeddedResource Include="Roboto-Medium.ttf" />
-    <EmbeddedResource Include="Roboto-Thin.ttf" />
+    <EmbeddedResource Include="JSON\TromboneSlidePos.json" />
+    <EmbeddedResource Include="Fonts\Roboto-Light.ttf" />
+    <EmbeddedResource Include="Fonts\Roboto-Medium.ttf" />
+    <EmbeddedResource Include="Fonts\Roboto-Thin.ttf" />
   </ItemGroup>
 
   <ItemGroup>

@@ -76,8 +76,6 @@ namespace SlideRead.Pages
             
             //Display note on screen
             int StartIndex = AllNotes.IndexOf("D3");
-            Console.WriteLine(StartIndex);
-            Console.WriteLine(selectionCount);
             if (selectionCount < StartIndex) //Move down
             {
                 string currentNote = "D";
@@ -91,7 +89,6 @@ namespace SlideRead.Pages
                     }
                     if (AllNotes[q] == selection)
                     {
-                        Console.WriteLine(steps);
                         TranslateNote(steps, false);
                         break;
                     }
@@ -110,7 +107,6 @@ namespace SlideRead.Pages
                     }
                     if (AllNotes[q] == selection)
                     {
-                        Console.WriteLine(steps);
                         TranslateNote(steps, true);
                         break;
                     }
@@ -131,10 +127,8 @@ namespace SlideRead.Pages
             for (int i=0; i<4; i++)
             {
                 string selected = answers[random.Next(0, answers.Count - 1)];
-                Console.WriteLine("Selected: " + selected);
                 await Device.InvokeOnMainThreadAsync(() =>
                 {
-                    Console.WriteLine("Roger" + i.ToString());
                     ButtonStackLayout.FindByName<Button>("SelectionBtn" + (i + 1).ToString()).Text = selected;
                 });
                 answers.Remove(selected);
@@ -169,7 +163,7 @@ namespace SlideRead.Pages
         {
             Classes.TromboneConfig tromboneConfig;
             var assembly = typeof(MainPage).GetTypeInfo().Assembly;
-            Stream stream = assembly.GetManifestResourceStream($"{assembly.GetName().Name}.{"TromboneSlidePos.json"}");
+            Stream stream = assembly.GetManifestResourceStream($"{assembly.GetName().Name}.{"JSON"}.{"TromboneSlidePos.json"}");
             using (StreamReader file = new StreamReader(stream))
             {
                 var json = file.ReadToEnd();
