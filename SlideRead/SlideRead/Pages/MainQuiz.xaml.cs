@@ -241,15 +241,18 @@ namespace SlideRead.Pages
                     if(allNotesSelectionCount > StartIndex)
                     {
                         LedgerLine.TranslationY = Note.TranslationY + 12;
+                        LedgerLine.TranslationX = Note.TranslationX;
                     }
                     else
                     {
                         LedgerLine.TranslationY = Note.TranslationY - 12;
+                        LedgerLine.TranslationX = Note.TranslationX;
                     }
                 }
                 else
                 {
                     LedgerLine.TranslationY = Note.TranslationY;
+                    LedgerLine.TranslationX = Note.TranslationX;
                 }
                 LedgerLine.IsVisible = true;
                 if ((steps-6)%2 == 0 && steps>7)
@@ -270,7 +273,7 @@ namespace SlideRead.Pages
                             Source = ImageSource.FromFile("LedgerLine"),
                             Scale = 0.15,
                             Aspect = Aspect.AspectFit,
-                            TranslationX = 50,
+                            TranslationX = Note.TranslationX,
                             TranslationY = temp1,
                             StyleId = "LedgerLine" +i.ToString()
                         };
