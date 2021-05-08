@@ -199,10 +199,10 @@
     <AndroidResource Include="Resources\drawable\TenorClef.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\sharp.png" />
+    <AndroidResource Include="Resources\drawable\Sharp.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\flat.png" />
+    <AndroidResource Include="Resources\drawable\Flat.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\LedgerLine.png" />

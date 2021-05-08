@@ -15,15 +15,15 @@ namespace SlideRead.Classes
     }
     public enum Accidentals
     {
-        Sharps,
-        Flats,
+        Sharp,
+        Flat,
         Mixed,
         None
     }
     public enum Key
     {
-        Sharps,
-        Flats,
+        Sharp,
+        Flat,
         Neutral
     }
     public class Settings
@@ -31,7 +31,7 @@ namespace SlideRead.Classes
         public int questions { get; set; } = 15;
         public int timelimit { get; set; } = 10;
         public Clef clef { get; set; } = Clef.Bass;
-        public string displaykey { get; set; } = "Bb";
+        public string displaykey { get; set; } = "C Major or A Minor";
         public Key keyFlag { get; set; } = Key.Neutral;
         public int numOfKey { get; set; } = 0;
         public Accidentals accidentals { get; set; } = Accidentals.None;

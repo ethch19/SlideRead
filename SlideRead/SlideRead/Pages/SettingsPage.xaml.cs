@@ -19,25 +19,25 @@ namespace SlideRead.Pages
             {"questions", new List<string>(){ "10", "15", "20"} },
             {"timelimit", new List<string>(){ "5", "10", "15"} },
             {"clef", new List<string>(){ "Treble", "Bass", "Tenor", "Mixed"} },
-            {"accidentals", new List<string>(){ "Sharps", "Flats", "Mixed", "None"} },
+            {"accidentals", new List<string>(){ "Sharp", "Flat", "Mixed", "None"} },
         };
         Dictionary<String, List<String>> keyDictionary = new Dictionary<string, List<String>>()
         {
             { "C", new List<string>(){ "Neutral", "0"} },
-            { "G", new List<string>(){ "Sharps", "1"} },
-            { "D", new List<string>(){ "Sharps", "2"} },
-            { "A", new List<string>(){ "Sharps", "3"} },
-            { "E", new List<string>(){ "Sharps", "4"} },
-            { "B", new List<string>(){ "Sharps", "5"} },
-            { "Cb", new List<string>(){ "Flats", "7"} },
-            { "F", new List<string>(){ "Flats", "1"} },
-            { "Bb", new List<string>(){ "Flats", "2"} },
-            { "Eb", new List<string>(){ "Flats", "3"} },
-            { "Ab", new List<string>(){ "Flats", "4"} },
-            { "Db", new List<string>(){ "Flats", "5"} },
-            { "C#", new List<string>(){ "Sharps", "7"} },
-            { "Gb", new List<string>(){ "Flats", "6"} },
-            { "F#", new List<string>(){ "Sharps", "6"} }
+            { "G", new List<string>(){ "Sharp", "1"} },
+            { "D", new List<string>(){ "Sharp", "2"} },
+            { "A", new List<string>(){ "Sharp", "3"} },
+            { "E", new List<string>(){ "Sharp", "4"} },
+            { "B", new List<string>(){ "Sharp", "5"} },
+            { "Cb", new List<string>(){ "Flat", "7"} },
+            { "F", new List<string>(){ "Flat", "1"} },
+            { "Bb", new List<string>(){ "Flat", "2"} },
+            { "Eb", new List<string>(){ "Flat", "3"} },
+            { "Ab", new List<string>(){ "Flat", "4"} },
+            { "Db", new List<string>(){ "Flat", "5"} },
+            { "C#", new List<string>(){ "Sharp", "7"} },
+            { "Gb", new List<string>(){ "Flat", "6"} },
+            { "F#", new List<string>(){ "Sharp", "6"} }
         };
         public SettingsPage()
         {
@@ -82,6 +82,7 @@ namespace SlideRead.Pages
             string keySelection = currentScrollList.Content.FindByName<Label>("CurrentItemLabel").Text;
             settings.GetType().GetProperty("displaykey").SetValue(settings, keySelection);
             string[] splitKeySelection = keySelection.Split();
+            Console.WriteLine(splitKeySelection[0]);
             List<String> tempInfo = keyDictionary.FirstOrDefault(x => x.Key == splitKeySelection[0]).Value;
             settings.GetType().GetProperty("keyFlag").SetValue(settings, Enum.Parse(typeof(Classes.Key), tempInfo[0]));
             settings.GetType().GetProperty("numOfKey").SetValue(settings, Int32.Parse(tempInfo[1]));

@@ -10,7 +10,7 @@
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="2*"/>
             </Grid.RowDefinitions>
-            <Image Grid.Row="0" Source="Staff" Scale="0.65" Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center"/>
+            <Image x:Name="Staff" Grid.Row="0" Source="Staff" Scale="0.65" ScaleX="1" Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center"/>
             <ProgressBar x:Name="ProgressBar" Grid.Row="0" HorizontalOptions="Fill" VerticalOptions="Start" ProgressColor="#4B54AA" Progress="0"/>
             <StackLayout x:Name="ButtonStackLayout" Grid.Row="1" Orientation="Vertical" Spacing="40">
                 <Label Text="Select the correct slide position" TextColor="#CAD1A5" FontFamily="Roboto-Light" FontSize="20" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="Start" HorizontalOptions="Center"/>
@@ -31,7 +31,7 @@
                     <Button x:Name="SelectionBtn4" Text="4" FontSize="35" FontFamily="Roboto-Light" TextColor="#55445D" Clicked="BtnSelectionMade" HorizontalOptions="Center" WidthRequest="258" HeightRequest="68" BackgroundColor="Transparent"/>
                 </Grid>
             </StackLayout>
-            <Image x:Name="Clef" Source="TenorClef" Scale="0.3" Aspect="AspectFit" TranslationX="-80" TranslationY="-9.5"/>
+            <Image x:Name="Clef" Source="BassClef" Scale="0.3" Aspect="AspectFit" TranslationX="-70" TranslationY="-9.5"/>
             <Image x:Name="LedgerLine" Source="LedgerLine" Scale="0.15" Aspect="AspectFit" TranslationY="70" TranslationX="50" IsVisible="False"/>
             <Ellipse x:Name="Note" Fill="#FFFFFF" WidthRequest="100" HeightRequest="50" Aspect="Fill" Scale="0.08" TranslationX="50" TranslationY="0"/>
         </Grid>

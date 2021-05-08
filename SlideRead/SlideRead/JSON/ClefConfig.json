@@ -1,5 +1,7 @@
 {
-  "Bass": [ "C4", "E2" , "D3"],
-  "Treble": [ "G4", "Bb3", "A3" ],
-  "Tenor": ["G4", "B2", "A3"]
+  "Bass": [ "C4", "E2", "D3", "Db3", "D#3" ],
+  "Treble": [ "G4", "Bb3", "A3", "B2"],
+  "Tenor": [ "G4", "B2", "A3" ],
+  "OrderOfFlat": [ "Bb2", "Eb3", "Ab2", "Db3", "Gb2", "Cb3", "Fb2"],
+  "OrderOfSharp": [ "F#3", "C#3", "G#3", "D#3", "A#2", "F3", "C2"]
 }

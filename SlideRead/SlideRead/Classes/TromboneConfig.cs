@@ -8,7 +8,8 @@ namespace SlideRead.Classes
     {
         public int CenOct { get; set; }
         public IList<IList<int>> EnlargeRange { get; set; }
-        public IList<string> Octave { get; set; }
+        public IList<string> FlatOctave { get; set; }
+        public IList<string> SharpOctave { get; set; }
         public IList<int> MaxPos { get; set; }
     }
 }
