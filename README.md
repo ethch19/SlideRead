@@ -3,7 +3,6 @@
 
 ## Platforms
 Android - **Under development**
-
 IOS - **Paused**
 
 ## Programming Language
