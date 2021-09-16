@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SlideRead.Android", "SlideR
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SlideRead.iOS", "SlideRead\SlideRead.iOS\SlideRead.iOS.csproj", "{53501175-50F6-4D67-954B-A0BC15D33876}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SlideRead", "SlideRead\SlideRead\SlideRead.csproj", "{7CC5EA98-9D8F-4037-85B2-72335289A1D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SlideRead", "SlideRead\SlideRead\SlideRead.csproj", "{7CC5EA98-9D8F-4037-85B2-72335289A1D9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

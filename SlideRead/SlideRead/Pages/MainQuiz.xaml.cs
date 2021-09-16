@@ -31,6 +31,7 @@ namespace SlideRead.Pages
             AllNotes.Add("Flat", CreateNotes("Flat"));
             AllNotes.Add("Sharp", CreateNotes("Sharp"));
         }
+        //Fade animation on start
         protected override void OnAppearing()
         {
             base.OnAppearing();
@@ -320,7 +321,7 @@ namespace SlideRead.Pages
             //Start timer
             timer.Start();
         }
-
+        //Generate notes in KEY in certain range
         private List<string> GetKeyNotes(string keyFlag)
         {
             //Get all notes in the key
@@ -416,7 +417,7 @@ namespace SlideRead.Pages
             Console.WriteLine(String.Join(", ", AllNotes)); //Debug list
             return AllNotes;
         }
-
+        //Move the note in terms of steps, 1 STEP = 1 SEMI-TONE
         private void TranslateNote(int steps, bool up)
         {
             int actualSteps = steps * 12;
@@ -429,7 +430,7 @@ namespace SlideRead.Pages
                 Note.TranslationY = actualSteps;
             }
         }
-        //Convert JSON to Class
+        //Convert JSON to variables in Classes
         private void Deserialisation()
         {
             var assembly = typeof(MainPage).GetTypeInfo().Assembly;
@@ -446,7 +447,7 @@ namespace SlideRead.Pages
                 clefConfig = JsonConvert.DeserializeObject<Classes.ClefConfig>(json);
             }
         }
-        //Generate range of notes into a list
+        //Generate chromatic notes in WHOLE range
         private List<string> CreateNotes(string keyFlag)
         {
             //Create a list of all notes (Chromatic scale)
@@ -481,18 +482,18 @@ namespace SlideRead.Pages
             Console.WriteLine(String.Join(", ", AllNotes)); //Debug list
             return AllNotes;
         }
-        //Button Pressed Event
+        //SelectionButton Pressed Event
         private void BtnSelectionMade(object sender, EventArgs args)
         {
             Button btn = (Button)sender;
             SelectionMade(btn.Text);
         }
-        //Timed out Event
+        //Question Timed out Event
         private void HandleTimerElapsed(object sender, ElapsedEventArgs e)
         {
-/*            SelectionMade("TimedOut");*/
+            SelectionMade("TimedOut");
         }
-        //Question has been answered
+        //Question has been answered event
         private async void SelectionMade(string text)
         {
             if (text == currentAnswer)

@@ -2,99 +2,31 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SlideRead.Pages.SettingsPage"
-             xmlns:Controls="clr-namespace:SlideRead.Controls"
-             BackgroundImageSource="settingbackground.png"
+             xmlns:custom="clr-namespace:SlideRead.Controls"
              NavigationPage.HasNavigationBar="False">
-    <Grid x:Name="topGrid">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Grid Grid.Row="0" Grid.Column="0" x:Name="mainGrid" VerticalOptions="FillAndExpand">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="0.7*"/>
-                <RowDefinition Height="2.8*"/>
-                <RowDefinition Height="1*"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Image Grid.Row="0" Grid.Column="0" Source="settingstitle.png" Aspect="AspectFit" Scale="0.5" HorizontalOptions="Center"/>
-            <StackLayout Grid.Row="1" Grid.Column="0" Orientation="Vertical" x:Name="stackGrid">
-                <StackLayout Orientation="Horizontal" x:Name="stackRow1">
-                    <Label Text="No. Of Questions:" FontSize ="23" FontFamily="Roboto-Thin" WidthRequest="250" HeightRequest="30" HorizontalTextAlignment="Center" HorizontalOptions="Center" VerticalOptions="Center"/>
-                    <Grid Margin="0,0,20,0" x:Name="button1Grid">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="40"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100"/>
-                        </Grid.ColumnDefinitions>
-                        <Image Grid.Row="0" Grid.Column="0" x:Name="Fake1" Source="dropdownbase.png" Aspect="AspectFill" HorizontalOptions="Center" VerticalOptions="Center" IsVisible="true"/>
-                        <Button Grid.Row="0" Grid.Column="0" x:Name="FakeButton1" Text="" BorderColor="Transparent" BackgroundColor="Transparent" TextColor="#FFFFFF" FontFamily="Roboto-Medium" HorizontalOptions="Center" VerticalOptions="Center" Clicked="DropDownClicked"/>
-                    </Grid>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal" x:Name="stackRow2">
-                    <Label Text="Time Limit:" FontSize ="23" FontFamily="Roboto-Thin" WidthRequest="250" HeightRequest="30" HorizontalTextAlignment="Center" HorizontalOptions="Center" VerticalOptions="Center"/>
-                    <Grid Margin="0,0,20,0" x:Name="button2Grid">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="40"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100"/>
-                        </Grid.ColumnDefinitions>
-                        <Image Grid.Row="0" Grid.Column="0" x:Name="Fake2" Source="dropdownbase.png" Aspect="AspectFill" HorizontalOptions="Center" VerticalOptions="Center" IsVisible="true"/>
-                        <Button Grid.Row="0" Grid.Column="0" x:Name="FakeButton2" Text="" BorderColor="Transparent" BackgroundColor="Transparent" TextColor="#FFFFFF" FontFamily="Roboto-Medium" HorizontalOptions="Center" VerticalOptions="Center" Clicked="DropDownClicked"/>
-                    </Grid>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal" x:Name="stackRow3">
-                    <Label Text="Clef:" FontSize ="23" FontFamily="Roboto-Thin" WidthRequest="250" HeightRequest="30" HorizontalTextAlignment="Center" HorizontalOptions="Center" VerticalOptions="Center"/>
-                    <Grid Margin="0,0,20,0" x:Name="button3Grid">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="40"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100"/>
-                        </Grid.ColumnDefinitions>
-                        <Image Grid.Row="0" Grid.Column="0" x:Name="Fake3" Source="dropdownbase.png" Aspect="AspectFill" HorizontalOptions="Center" VerticalOptions="Center" IsVisible="true"/>
-                        <Button Grid.Row="0" Grid.Column="0" x:Name="FakeButton3" Text="" BorderColor="Transparent" BackgroundColor="Transparent" TextColor="#FFFFFF" FontFamily="Roboto-Medium" HorizontalOptions="Center" VerticalOptions="Center" Clicked="DropDownClicked"/>
-                    </Grid>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal" x:Name="stackRow4">
-                    <Label Text="Key Signature:" FontSize ="23" FontFamily="Roboto-Thin" WidthRequest="250" HeightRequest="30" HorizontalTextAlignment="Center" HorizontalOptions="Center" VerticalOptions="Center"/>
-                    <Grid Margin="0,0,20,0" x:Name="button4Grid">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="40"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100"/>
-                        </Grid.ColumnDefinitions>
-                        <Image Grid.Row="0" Grid.Column="0" x:Name="Fake4" Source="dropdownbase.png" Aspect="AspectFill" HorizontalOptions="Center" VerticalOptions="Center" IsVisible="true"/>
-                        <Button Grid.Row="0" Grid.Column="0" x:Name="FakeButton4" Text="Open" BorderColor="Transparent" BackgroundColor="Transparent" TextColor="#FFFFFF" FontFamily="Roboto-Medium" HorizontalOptions="Center" VerticalOptions="Center" Clicked="ScrollListClicked"/>
-                    </Grid>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal" x:Name="stackRow5">
-                    <Label Text="Accidentals:" FontSize ="23" FontFamily="Roboto-Thin" WidthRequest="250" HeightRequest="30" HorizontalTextAlignment="Center" HorizontalOptions="Center" VerticalOptions="Center"/>
-                    <Grid Margin="0,0,20,0" x:Name="button5Grid">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="40"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100"/>
-                        </Grid.ColumnDefinitions>
-                        <Image Grid.Row="0" Grid.Column="0" x:Name="Fake5" Source="dropdownbase.png" Aspect="AspectFill" HorizontalOptions="Center" VerticalOptions="Center" IsVisible="true"/>
-                        <Button Grid.Row="0" Grid.Column="0" x:Name="FakeButton5" Text="" BorderColor="Transparent" BackgroundColor="Transparent" TextColor="#FFFFFF" FontFamily="Roboto-Medium" HorizontalOptions="Center" VerticalOptions="Center" Clicked="DropDownClicked"/>
-                    </Grid>
-                </StackLayout>
-            </StackLayout>
-            <StackLayout Grid.Row="2" Grid.Column="0" Orientation="Vertical" Spacing="30" VerticalOptions="End" Padding="0,0,0,25">
-                <ImageButton BackgroundColor="Transparent" Source="backbtn.png" HeightRequest="30" WidthRequest="100" Aspect="AspectFit" Clicked="BackBtnClicked"/>
-                <Image Source="credits.png" HeightRequest="30" WidthRequest="150" Aspect="AspectFit"/>
-            </StackLayout>
-        </Grid>
-        <Image x:Name="DarkenedLayer" Grid.Row="0" Grid.Column="0" Source="DarkenLayer" Aspect="AspectFill" IsVisible="False"/>
-        <ImageButton x:Name="scrollListExitBtn" Grid.Row="0" Grid.Column="0" Source="exitbtn" Aspect="AspectFit" BackgroundColor="Transparent" Scale="0.45" HorizontalOptions="Start" VerticalOptions="Start" Clicked="CloseScrollList" IsVisible="False"/>
-    </Grid>
+    <AbsoluteLayout x:Name="absLayout">
+        <AbsoluteLayout.Background>
+            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                <GradientStop Color="#9A6EAA" Offset="0.1"/>
+                <GradientStop Color="#281956" Offset="1.0"/>
+            </LinearGradientBrush>
+        </AbsoluteLayout.Background>
+        <Label AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.5, 0.04" Text="Settings" TextColor="White" FontFamily="Roboto-Medium" FontSize="50" HorizontalOptions="Center" VerticalOptions="Center"/>
+        <Label AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.1, 0.18" Text="No. Of Questions:" FontSize ="26" FontFamily="Roboto-Light" TextColor="#FFFFFF" WidthRequest="250" HeightRequest="35" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="Center" VerticalOptions="Center"/>
+        <custom:CustomBtn AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.9, 0.18" x:Name="DpButton1" Text="" FontSize="16" HorizontalOptions="Center" VerticalOptions="Center" ButtonBorderColor="#EFE6FF" ButtonBackgroundColor="#AE85C2" HeightRequest="35" WidthRequest="100" ButtonBorderWidth="8" ButtonCornerRadius="30" TextColor="#FFFFFF" FontFamily="Roboto-Medium" Clicked="DropDownClicked"/>
+        <Label AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.1, 0.25" Grid.Row="2" Grid.Column="0" Text="Time Limit:" FontSize ="26" FontFamily="Roboto-Light" TextColor="#FFFFFF" WidthRequest="250" HeightRequest="35" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="Center" VerticalOptions="Center"/>
+        <custom:CustomBtn AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.9, 0.25" x:Name="DpButton2" Text="" FontSize="16" HorizontalOptions="Center" VerticalOptions="Center" ButtonBorderColor="#EFE6FF" ButtonBackgroundColor="#AE85C2" HeightRequest="35" WidthRequest="100" ButtonBorderWidth="8" ButtonCornerRadius="30" TextColor="#FFFFFF" FontFamily="Roboto-Medium" Clicked="DropDownClicked"/>
+        <Label AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.1, 0.32" Grid.Row="3" Grid.Column="0" Text="Clef:" FontSize ="26" FontFamily="Roboto-Light" TextColor="#FFFFFF" WidthRequest="250" HeightRequest="35" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="Center" VerticalOptions="Center"/>
+        <custom:CustomBtn AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.9, 0.32" x:Name="DpButton3" Text="" HorizontalOptions="Center" VerticalOptions="Center" ButtonBorderColor="#EFE6FF" ButtonBackgroundColor="#AE85C2" HeightRequest="35" WidthRequest="100" ButtonBorderWidth="8" ButtonCornerRadius="30" TextColor="#FFFFFF" FontFamily="Roboto-Medium" Clicked="DropDownClicked"/>
+        <Label AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.1, 0.39" Grid.Row="4" Grid.Column="0" Text="Key Signature:" FontSize ="26" FontFamily="Roboto-Light" TextColor="#FFFFFF" WidthRequest="250" HeightRequest="35" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="Center" VerticalOptions="Center"/>
+        <custom:CustomBtn AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.9, 0.39" x:Name="KeySigButton" Text="Open" HorizontalOptions="Center" VerticalOptions="Center" ButtonBorderColor="#EFE6FF" ButtonBackgroundColor="#AE85C2" HeightRequest="35" WidthRequest="100" ButtonBorderWidth="8" ButtonCornerRadius="30" TextColor="#FFFFFF" FontFamily="Roboto-Medium" Clicked="ScrollListClicked"/>
+        <Label AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.1, 0.46" Grid.Row="5" Grid.Column="0" Text="Accidentals:" FontSize ="26" FontFamily="Roboto-Light" TextColor="#FFFFFF" WidthRequest="250" HeightRequest="35" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="Center" VerticalOptions="Center"/>
+        <custom:CustomBtn AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.9, 0.46"  x:Name="DpButton4" Text="" HorizontalOptions="Center" VerticalOptions="Center" ButtonBorderColor="#EFE6FF" ButtonBackgroundColor="#AE85C2" HeightRequest="35" WidthRequest="100" ButtonBorderWidth="8" ButtonCornerRadius="30" TextColor="#FFFFFF" FontFamily="Roboto-Medium" Clicked="DropDownClicked"/>
+        <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.5, 1" Orientation="Vertical" Spacing="30" VerticalOptions="End" Padding="0,0,0,25">
+            <custom:CustomBtn Text="Back" BackgroundColor="Transparent" TextColor="#FFFFFF" ButtonCornerRadius="60" ButtonBorderColor="#FFFFFF" ButtonBorderWidth="8" FontFamily="Roboto-Thin" WidthRequest="100" HeightRequest="35" HorizontalOptions="Center" VerticalOptions="Center" FontSize="16" Clicked="BackBtnClicked"/>
+            <Label Text="Powered by Eth" TextColor="#FFFFFF" FontSize="25" FontFamily="Roboto-Thin" HorizontalOptions="Center" VerticalOptions="Center"/>
+        </StackLayout>
+        <Image AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1" x:Name="DarkenedLayer" Source="DarkenLayer" Aspect="AspectFill" IsVisible="False"/>
+        <ImageButton AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.5,0.93" x:Name="scrollListExitBtn" Source="exitbtn" Aspect="AspectFit" BackgroundColor="Transparent" Scale="0.45" HorizontalOptions="Start" VerticalOptions="Start" Clicked="CloseScrollList" IsVisible="False" TranslationY="30"/>
+    </AbsoluteLayout>
 </ContentPage>

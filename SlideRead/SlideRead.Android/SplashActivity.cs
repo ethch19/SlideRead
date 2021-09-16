@@ -5,6 +5,7 @@ using Android.Transitions;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using AndroidX.Core.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,12 +22,43 @@ namespace SlideRead.Droid
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.P)
+            {
+                Window.Attributes.LayoutInDisplayCutoutMode = LayoutInDisplayCutoutMode.ShortEdges;
+            }
+            Window.AddFlags(WindowManagerFlags.Fullscreen);
+            Window.AddFlags(WindowManagerFlags.TranslucentNavigation);
+            
             SetContentView(Resource.Layout.SplashLayout);
+            if((int)Build.VERSION.SdkInt >= 30)
+            {
+                Window.SetDecorFitsSystemWindows(true);
+                IWindowInsetsController insetsController = Window.InsetsController;
+                if (insetsController != null)
+                {
+                    insetsController.Hide(WindowInsets.Type.NavigationBars());
+                }
+            }
+            else
+            {
+                var uiOptions = (int)Window.DecorView.SystemUiVisibility;
+                var newUiOptions = (int)uiOptions;
+
+                newUiOptions |=
+                    (int)SystemUiFlags.LayoutStable |
+                    (int)SystemUiFlags.LayoutHideNavigation |
+                    (int)SystemUiFlags.LayoutFullscreen |
+                    (int)SystemUiFlags.HideNavigation |
+                    (int)SystemUiFlags.Fullscreen |
+                    (int)SystemUiFlags.ImmersiveSticky;
+
+                Window.DecorView.SystemUiVisibility = (StatusBarVisibility)newUiOptions;
+            }
             LottieAnimationView animationView = FindViewById<LottieAnimationView>(Resource.Id.animation_view);
             Window.ExitTransition = new Fade();
             animationView.AddAnimatorListener(this);
-            
         }
+
         public void OnAnimationEnd(Animator animation)
         {
             StartActivity(new Intent(this, typeof(MainActivity)), ActivityOptions.MakeSceneTransitionAnimation(this).ToBundle());

@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SlideRead.Pages.MainQuiz"
-             BackgroundImageSource="TromboneBackground.png"
+             xmlns:custom="clr-namespace:SlideRead.Controls"
              NavigationPage.HasNavigationBar="False">
     <ContentPage.Content>
         <Grid x:Name="topGrid">
@@ -10,26 +10,21 @@
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="2*"/>
             </Grid.RowDefinitions>
+            <Grid.Background>
+                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                    <GradientStop Color="#8EA1C8" Offset="0.1"/>
+                    <GradientStop Color="#49376D" Offset="0.7"/>
+                    <GradientStop Color="#281956" Offset="1.0"/>
+                </LinearGradientBrush>
+            </Grid.Background>
             <Image x:Name="Staff" Grid.Row="0" Source="Staff" Scale="0.65" ScaleX="1" Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center"/>
-            <ProgressBar x:Name="ProgressBar" Grid.Row="0" HorizontalOptions="Fill" VerticalOptions="Start" ProgressColor="#4B54AA" Progress="0"/>
-            <StackLayout x:Name="ButtonStackLayout" Grid.Row="1" Orientation="Vertical" Spacing="40">
+            <custom:CustomProgressBar x:Name="ProgressBar"  Grid.Row="0" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand" ProgressColor="#4B54AA" Progress="0" ProgressBarCornerRadius="10"/>
+            <StackLayout x:Name="ButtonStackLayout" Grid.Row="1" Orientation="Vertical" Spacing="50">
                 <Label Text="Select the correct slide position" TextColor="#CAD1A5" FontFamily="Roboto-Light" FontSize="20" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="Start" HorizontalOptions="Center"/>
-                <Grid>
-                    <Image Source="trboneSelectionButton" Aspect="AspectFit" HorizontalOptions="Center" WidthRequest="250" HeightRequest="50"/>
-                    <Button x:Name="SelectionBtn1" Text="1" FontSize="35" FontFamily="Roboto-Light" TextColor="#55445D" Clicked="BtnSelectionMade" HorizontalOptions="Center" WidthRequest="258" HeightRequest="68" BackgroundColor="Transparent"/>
-                </Grid>
-                <Grid>
-                    <Image Source="trboneSelectionButton" Aspect="AspectFit" HorizontalOptions="Center" WidthRequest="250" HeightRequest="50"/>
-                    <Button x:Name="SelectionBtn2" Text="5" FontSize="35" FontFamily="Roboto-Light" TextColor="#55445D" Clicked="BtnSelectionMade" HorizontalOptions="Center" WidthRequest="258" HeightRequest="68" BackgroundColor="Transparent"/>
-                </Grid>
-                <Grid>
-                    <Image Source="trboneSelectionButton" Aspect="AspectFit" HorizontalOptions="Center" WidthRequest="250" HeightRequest="50"/>
-                    <Button x:Name="SelectionBtn3" Text="7" FontSize="35" FontFamily="Roboto-Light" TextColor="#55445D" Clicked="BtnSelectionMade" HorizontalOptions="Center" WidthRequest="258" HeightRequest="68" BackgroundColor="Transparent"/>
-                </Grid>
-                <Grid>
-                    <Image Source="trboneSelectionButton" Aspect="AspectFit" HorizontalOptions="Center" WidthRequest="250" HeightRequest="50"/>
-                    <Button x:Name="SelectionBtn4" Text="4" FontSize="35" FontFamily="Roboto-Light" TextColor="#55445D" Clicked="BtnSelectionMade" HorizontalOptions="Center" WidthRequest="258" HeightRequest="68" BackgroundColor="Transparent"/>
-                </Grid>
+                <custom:CustomBtn x:Name="SelectionBtn1" Text="1" ButtonBackgroundColor="#D9DBEF" TextColor="#55445D" ButtonCornerRadius="80" FontFamily="Roboto-Light" WidthRequest="300" HeightRequest="55" HorizontalOptions="Center" VerticalOptions="Center" FontSize="35" Clicked="BtnSelectionMade"/>
+                <custom:CustomBtn x:Name="SelectionBtn2" Text="2" ButtonBackgroundColor="#D9DBEF" TextColor="#55445D" ButtonCornerRadius="80" FontFamily="Roboto-Light" WidthRequest="300" HeightRequest="55" HorizontalOptions="Center" VerticalOptions="Center" FontSize="35" Clicked="BtnSelectionMade"/>
+                <custom:CustomBtn x:Name="SelectionBtn3" Text="3" ButtonBackgroundColor="#D9DBEF" TextColor="#55445D" ButtonCornerRadius="80" FontFamily="Roboto-Light" WidthRequest="300" HeightRequest="55" HorizontalOptions="Center" VerticalOptions="Center" FontSize="35" Clicked="BtnSelectionMade"/>
+                <custom:CustomBtn x:Name="SelectionBtn4" Text="4" ButtonBackgroundColor="#D9DBEF" TextColor="#55445D" ButtonCornerRadius="80" FontFamily="Roboto-Light" WidthRequest="300" HeightRequest="55" HorizontalOptions="Center" VerticalOptions="Center" FontSize="35" Clicked="BtnSelectionMade"/>
             </StackLayout>
             <Image x:Name="Clef" Source="BassClef" Scale="0.3" Aspect="AspectFit" TranslationX="-70" TranslationY="-9.5"/>
             <Image x:Name="LedgerLine" Source="LedgerLine" Scale="0.15" Aspect="AspectFit" TranslationY="70" TranslationX="50" IsVisible="False"/>

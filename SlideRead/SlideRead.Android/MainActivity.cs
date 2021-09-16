@@ -6,6 +6,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using Android.Graphics;
 
 namespace SlideRead.Droid
 {
@@ -22,7 +23,36 @@ namespace SlideRead.Droid
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
-            this.Window.AddFlags(WindowManagerFlags.Fullscreen);
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.P)
+            {
+                Window.Attributes.LayoutInDisplayCutoutMode = LayoutInDisplayCutoutMode.ShortEdges;
+            }
+            Window.AddFlags(WindowManagerFlags.Fullscreen);
+            Window.AddFlags(WindowManagerFlags.TranslucentNavigation);
+            if ((int)Build.VERSION.SdkInt >= 30)
+            {
+                Window.SetDecorFitsSystemWindows(true);
+                IWindowInsetsController insetsController = Window.InsetsController;
+                if (insetsController != null)
+                {
+                    insetsController.Hide(WindowInsets.Type.NavigationBars());
+                }
+            }
+            else
+            {
+                var uiOptions = (int)Window.DecorView.SystemUiVisibility;
+                var newUiOptions = (int)uiOptions;
+
+                newUiOptions |=
+                    (int)SystemUiFlags.LayoutStable |
+                    (int)SystemUiFlags.LayoutHideNavigation |
+                    (int)SystemUiFlags.LayoutFullscreen |
+                    (int)SystemUiFlags.HideNavigation |
+                    (int)SystemUiFlags.Fullscreen |
+                    (int)SystemUiFlags.ImmersiveSticky;
+
+                Window.DecorView.SystemUiVisibility = (StatusBarVisibility)newUiOptions;
+            }
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {
