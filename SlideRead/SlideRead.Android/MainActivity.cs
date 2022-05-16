@@ -6,6 +6,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using AndroidX.Core.View;
 using Android.Graphics;
 
 namespace SlideRead.Droid
@@ -26,19 +27,19 @@ namespace SlideRead.Droid
             if (Build.VERSION.SdkInt >= BuildVersionCodes.P)
             {
                 Window.Attributes.LayoutInDisplayCutoutMode = LayoutInDisplayCutoutMode.ShortEdges;
-            }
-            Window.AddFlags(WindowManagerFlags.Fullscreen);
-            Window.AddFlags(WindowManagerFlags.TranslucentNavigation);
-            if ((int)Build.VERSION.SdkInt >= 30)
-            {
-                Window.SetDecorFitsSystemWindows(true);
-                IWindowInsetsController insetsController = Window.InsetsController;
-                if (insetsController != null)
+                WindowCompat.SetDecorFitsSystemWindows(Window, false);
+                WindowInsetsControllerCompat controller = new WindowInsetsControllerCompat(Window, Window.DecorView);
+                controller.Hide(WindowInsets.Type.SystemBars());
+                DisplayCutout cutout = this.Display.Cutout;
+                if (cutout != null)
                 {
-                    insetsController.Hide(WindowInsets.Type.NavigationBars());
+                    var view = this.FindViewById(Android.Resource.Id.Content);
+                    float scale = (float)(Display.Height - cutout.SafeInsetTop) / Display.Height;
+                    view.ScaleY = scale;
                 }
             }
-            else
+            Window.AddFlags(WindowManagerFlags.Fullscreen);
+            if (Build.VERSION.SdkInt < BuildVersionCodes.P)
             {
                 var uiOptions = (int)Window.DecorView.SystemUiVisibility;
                 var newUiOptions = (int)uiOptions;

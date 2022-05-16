@@ -23,6 +23,14 @@ namespace SlideRead.Controls
             set { SetValue(CustomBackgroundColorProperty, value); }
         }
 
+        public static readonly BindableProperty CustomBackgroundTransparencyProperty = BindableProperty.Create("BackgroundTransparencyProperty", typeof(float), typeof(CustomBtn), 1f);
+
+        public float LabelBackgroundTransparency
+        {
+            get { return (float)GetValue(CustomBackgroundTransparencyProperty); }
+            set { SetValue(CustomBackgroundTransparencyProperty, value); }
+        }
+
         public static readonly BindableProperty CustomBorderWidthProperty = BindableProperty.Create("BorderWidthProperty", typeof(int), typeof(CustomBtn), 0);
 
         public int LabelBorderWidth

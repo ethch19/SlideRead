@@ -14,16 +14,16 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Grid.Background>
+        <!--<Grid.Background>
             <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
                 <GradientStop Color="#BCA3D5" Offset="0.1"/>
                 <GradientStop Color="#49376D" Offset="0.7"/>
                 <GradientStop Color="#281956" Offset="1.0"/>
             </LinearGradientBrush>
-        </Grid.Background>
+        </Grid.Background>-->
         <Image Grid.Row="0" Grid.Column="0" Source="title.png" Aspect="AspectFill" Margin="0,0,0,70" Scale="1.1"/>
         <custom:CustomBtn Grid.Row="1" Grid.Column="0" Text="Trombone" ButtonBackgroundColor="#FFFFFF" TextColor="#2E3371" ButtonCornerRadius="55" FontFamily="Roboto-Light" WidthRequest="300" HeightRequest="55" HorizontalOptions="Center" VerticalOptions="Center" FontSize="20" Clicked="TromboneBtnClicked"/>
-        <custom:CustomBtn Grid.Row="2" Grid.Column="0" Text="General" ButtonBackgroundColor="#2C1A4B" TextColor="#FFFFFF" ButtonCornerRadius="55" FontFamily="Roboto-Light" WidthRequest="300" HeightRequest="55" HorizontalOptions="Center" VerticalOptions="Start" FontSize="20"/>
+        <custom:CustomBtn Grid.Row="2" Grid.Column="0" Text="General" ButtonBackgroundColor="#2C1A4B" TextColor="#FFFFFF" ButtonCornerRadius="55" FontFamily="Roboto-Light" WidthRequest="300" HeightRequest="55" HorizontalOptions="Center" VerticalOptions="Start" FontSize="20" Clicked="GeneralBtnClicked"/>
         <StackLayout Grid.Row="3" Grid.Column="0" Orientation="Vertical" Spacing="30" VerticalOptions="End" Padding="0,0,0,25">
             <custom:CustomBtn Text="Settings" BackgroundColor="Transparent" TextColor="#FFFFFF" ButtonCornerRadius="60" ButtonBorderColor="#FFFFFF" ButtonBorderWidth="8" FontFamily="Roboto-Thin" WidthRequest="100" HeightRequest="35" HorizontalOptions="Center" VerticalOptions="Center" FontSize="16" Clicked="SettingsBtnClicked"/>
             <Label Text="Powered by Eth" TextColor="#FFFFFF" FontSize="25" FontFamily="Roboto-Thin" HorizontalOptions="Center" VerticalOptions="Center"/>

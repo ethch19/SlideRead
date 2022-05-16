@@ -6,13 +6,6 @@ using Xamarin.Essentials;
 
 namespace SlideRead.Classes
 {
-    public enum Clef
-    {
-        Treble,
-        Bass,
-        Tenor,
-        Mixed
-    }
     public enum Accidentals
     {
         Sharp,
@@ -26,12 +19,18 @@ namespace SlideRead.Classes
         Flat,
         Neutral
     }
+    public enum SLClef
+    {
+        Treble,
+        Bass,
+        Tenor
+    }
     public class Settings
     {
         public int questions { get; set; } = 15;
         public int timelimit { get; set; } = 10;
-        public Clef clef { get; set; } = Clef.Bass;
-        public string displaykey { get; set; } = "C Major or A Minor";
+        public SLClef clef { get; set; } = SLClef.Bass;
+        public string displaykey { get; set; } = "C/Am";
         public Key keyFlag { get; set; } = Key.Neutral;
         public int numOfKey { get; set; } = 0;
         public Accidentals accidentals { get; set; } = Accidentals.None;
@@ -52,7 +51,7 @@ namespace SlideRead.Classes
                             propertyInfo.SetValue(this, Int32.Parse(Preferences.Get(propertyInfo.Name, null)));
                             break;
                         case "clef":
-                            propertyInfo.SetValue(this, Enum.Parse(typeof(Clef), Preferences.Get(propertyInfo.Name, null)));
+                            propertyInfo.SetValue(this, Enum.Parse(typeof(SLClef), Preferences.Get(propertyInfo.Name, null)));
                             break;
                         case "displaykey":
                             propertyInfo.SetValue(this, Preferences.Get(propertyInfo.Name, null));

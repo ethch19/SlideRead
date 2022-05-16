@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <None Remove="JSON\ClefConfig.json" />
+    <None Remove="JSON\GeneralConfig.json" />
     <None Remove="Roboto-Light.ttf" />
     <None Remove="Roboto-Medium.ttf" />
     <None Remove="Roboto-Thin.ttf" />
@@ -20,6 +21,7 @@
 
   <ItemGroup>
     <EmbeddedResource Include="JSON\ClefConfig.json" />
+    <EmbeddedResource Include="JSON\GeneralConfig.json" />
     <EmbeddedResource Include="JSON\TromboneConfig.json" />
     <EmbeddedResource Include="Fonts\Roboto-Light.ttf" />
     <EmbeddedResource Include="Fonts\Roboto-Medium.ttf" />
@@ -27,13 +29,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Com.Airbnb.Xamarin.Forms.Lottie" Version="4.0.10" />
+    <PackageReference Include="Com.Airbnb.Xamarin.Forms.Lottie" Version="4.0.11" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2083" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2196" />
     <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Pages\GeneralQuiz.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Pages\MainQuiz.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

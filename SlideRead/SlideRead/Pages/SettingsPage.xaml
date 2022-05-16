@@ -5,12 +5,12 @@
              xmlns:custom="clr-namespace:SlideRead.Controls"
              NavigationPage.HasNavigationBar="False">
     <AbsoluteLayout x:Name="absLayout">
-        <AbsoluteLayout.Background>
+        <!--<AbsoluteLayout.Background>
             <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
                 <GradientStop Color="#9A6EAA" Offset="0.1"/>
                 <GradientStop Color="#281956" Offset="1.0"/>
             </LinearGradientBrush>
-        </AbsoluteLayout.Background>
+        </AbsoluteLayout.Background>-->
         <Label AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.5, 0.04" Text="Settings" TextColor="White" FontFamily="Roboto-Medium" FontSize="50" HorizontalOptions="Center" VerticalOptions="Center"/>
         <Label AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.1, 0.18" Text="No. Of Questions:" FontSize ="26" FontFamily="Roboto-Light" TextColor="#FFFFFF" WidthRequest="250" HeightRequest="35" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="Center" VerticalOptions="Center"/>
         <custom:CustomBtn AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.9, 0.18" x:Name="DpButton1" Text="" FontSize="16" HorizontalOptions="Center" VerticalOptions="Center" ButtonBorderColor="#EFE6FF" ButtonBackgroundColor="#AE85C2" HeightRequest="35" WidthRequest="100" ButtonBorderWidth="8" ButtonCornerRadius="30" TextColor="#FFFFFF" FontFamily="Roboto-Medium" Clicked="DropDownClicked"/>
@@ -27,6 +27,6 @@
             <Label Text="Powered by Eth" TextColor="#FFFFFF" FontSize="25" FontFamily="Roboto-Thin" HorizontalOptions="Center" VerticalOptions="Center"/>
         </StackLayout>
         <Image AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1" x:Name="DarkenedLayer" Source="DarkenLayer" Aspect="AspectFill" IsVisible="False"/>
-        <ImageButton AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.5,0.93" x:Name="scrollListExitBtn" Source="exitbtn" Aspect="AspectFit" BackgroundColor="Transparent" Scale="0.45" HorizontalOptions="Start" VerticalOptions="Start" Clicked="CloseScrollList" IsVisible="False" TranslationY="30"/>
+        <ImageButton AbsoluteLayout.LayoutFlags="None" AbsoluteLayout.LayoutBounds="0,0" x:Name="scrollListExitBtn" Source="exitbtn" Aspect="AspectFit" BackgroundColor="Transparent" Scale="0.45" HorizontalOptions="Center" VerticalOptions="Center" Clicked="CloseScrollList" IsVisible="False"/>
     </AbsoluteLayout>
 </ContentPage>

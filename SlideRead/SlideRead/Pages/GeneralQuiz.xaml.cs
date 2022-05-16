@@ -11,26 +11,24 @@ using System.Threading.Tasks;
 namespace SlideRead.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MainQuiz : ContentPage
+    public partial class GeneralQuiz : ContentPage
     {
         Classes.Settings settings = new Classes.Settings();
         Classes.KeySignature keySignature = new Classes.KeySignature();
         Dictionary<string, Classes.IClef> clefConfig = new Dictionary<string, Classes.IClef>()
         {
             {"Bass", new Classes.BassClef()},
-            {"Tenor", new Classes.TenorClef()}
+            {"Tenor", new Classes.TenorClef()},
+            {"Treble", new Classes.TrebleClef()}
         };
         Dictionary<string, Guid> AddedViews = new Dictionary<string, Guid>();
         List<string> CScale = new List<string>(); //Trimmed C scale
         List<string> ScaleInKey = new List<string>(); //Trimmed Scale In Key
-        Timer timer = new Timer();
-        bool Termination = false;
-        int answerPos = 0;
+        Timer timer;
         string answerNote = String.Empty;
-        string lastAnswer = String.Empty;
         int score = 0;
         int answeredQuestions = 0;
-        public MainQuiz()
+        public GeneralQuiz()
         {
             InitializeComponent();
             ExpandTrimmedScale();
@@ -68,7 +66,7 @@ namespace SlideRead.Pages
                 Clef.Scale = 0.32;
             }
             Classes.IClef clef = clefConfig.First(x => x.Key == settings.clef.ToString()).Value;
-            for (int i =1; i<=keySignature.OctaveNum; i++)
+            for (int i = 1; i <= keySignature.OctaveNum; i++)
             {
                 foreach (string note in keySignature.CMajorOctave)
                 {
@@ -101,13 +99,13 @@ namespace SlideRead.Pages
                     string accidental = OrderOfKey[i];
                     if (accidental.Equals(up))
                     {
-                        ScaleInKey.Add(up+note[1]);
+                        ScaleInKey.Add(up + note[1]);
                         found = true;
                         break;
                     }
                     else if (accidental.Equals(down))
                     {
-                        ScaleInKey.Add(down+note[1]);
+                        ScaleInKey.Add(down + note[1]);
                         found = true;
                         break;
                     }
@@ -123,7 +121,6 @@ namespace SlideRead.Pages
             }
             string s = string.Join(", ", ScaleInKey);
             Console.WriteLine($"Scale In Key: {s}");
-            keySignature.ConvertSharpFlat(ScaleInKey); //Testing purposes
         }
         private async Task DisplayKeySignature()//Set key signatures (flats/sharps)
         {
@@ -218,40 +215,14 @@ namespace SlideRead.Pages
                     break;
             }
         }
-        private (string selection, int selectionCount, int slidePos) GetRandomNote()//Get a random note as the answer
+        private (string selection, int selectionCount) GetRandomNote()//Get a random note as the answer
         {
             //Get random note and slide pos
             Random random = new Random();
             int selectionCount = random.Next(0, ScaleInKey.Count - 1);
             string selection = ScaleInKey[selectionCount];
-            if (answeredQuestions != 0)
-            {
-                while (selection == lastAnswer)
-                {
-                    selectionCount = random.Next(0, ScaleInKey.Count - 1);
-                    selection = ScaleInKey[selectionCount];
-                }
-            }
-            int tempSelectionCount = selectionCount;
-            int slidePos = 0;
-            List<int> MaxPos= new List<int>() { 7, 7, 5, 4, 3 }; //Always start with E2 as E2 is 7th position. Counts down
-            for (int i = 0; i < MaxPos.Count; i++)
-            {
-                if (tempSelectionCount + 1 <= MaxPos[i])
-                {
-                    slidePos = MaxPos[i] - tempSelectionCount;
-                    Console.WriteLine(selection + ": " + slidePos.ToString());
-                    break;
-                }
-                else
-                {
-                    tempSelectionCount -= MaxPos[i];
-                }
-            }
-            answerPos = slidePos;
             answerNote = selection;
-            lastAnswer = answerNote;
-            return (selection, selectionCount, slidePos);
+            return (selection, selectionCount);
         }
         private async Task<(int steps, int StartIndex, string CScaleSelection)> DisplayNote(string selection)//Move note to correct position
         {
@@ -268,7 +239,7 @@ namespace SlideRead.Pages
             else if (selection.Length > 2)
             {
                 EndIndex = CScale.IndexOf(selection.Remove(1, 1));
-                currentNote = selection.Remove(1,1);
+                currentNote = selection.Remove(1, 1);
             }
             else
             {
@@ -384,14 +355,40 @@ namespace SlideRead.Pages
                 });
             }
         }
-        private async Task DisplayAnswers(int slidePos)//Set answers on buttons
+        private async Task<string> AccidentalAddtion()
+        {
+            Random random = new Random();
+            string AccidentalSettings = settings.accidentals.ToString();
+            if (random.Next(0,1) != 0 || AccidentalSettings == "None")
+            {
+                return null;
+            }
+            switch (AccidentalSettings)
+            {
+                case "Mixed":
+                    AccidentalSettings = (random.Next(0, 1) == 0) ? "Flat" : "Sharp";
+                    break;
+                default:
+                    break;
+            }
+            if (answerNote == null)
+            {
+                return null;
+            }
+            else
+            {
+                return null;
+            }
+            
+        }
+        private async Task DisplayAnswers()//Set answers on buttons
         {
             //Set answers
             Random random = new Random();
             List<string> answers = new List<string>();
-            List<string> wrongAnswers = new List<string>() { "1", "2", "3", "4", "5", "6", "7" };
-            answers.Add(slidePos.ToString());
-            wrongAnswers.Remove(slidePos.ToString());
+            List<string> wrongAnswers = new List<string>(ScaleInKey);
+            answers.Add(answerNote);
+            wrongAnswers.Remove(answerNote);
             for (int i = 0; i < 3; i++)
             {
                 string selected = wrongAnswers[random.Next(0, wrongAnswers.Count - 1)];
@@ -407,10 +404,6 @@ namespace SlideRead.Pages
                 });
                 answers.Remove(selected);
             }
-            await Device.InvokeOnMainThreadAsync(() => //Dev answer display
-            {
-                AnswerDisplay.Text = $"Note: {answerNote}, Slide Pos: {answerPos}";
-            });
         }
         private async Task ChangeProgress()//Change Progress bar
         {
@@ -422,11 +415,17 @@ namespace SlideRead.Pages
         }
         private async void GetNewQuestion()//Request a new question
         {
-            if (Termination) return;
             //Timer Config
-            timer = new Timer(settings.timelimit * 1000);
-            timer.Elapsed += HandleTimerElapsed;
-            timer.AutoReset = false;
+            if (timer == null)
+            {
+                timer = new Timer(settings.timelimit * 1000);
+                timer.Elapsed += HandleTimerElapsed;
+                timer.AutoReset = false;
+            }
+            else
+            {
+                timer.Stop();
+            }
 
             //Clears AddedViews except key signatures
             foreach (KeyValuePair<string, Guid> item in AddedViews.ToList())
@@ -445,7 +444,7 @@ namespace SlideRead.Pages
             var list1 = GetRandomNote();
             var list2 = await DisplayNote(list1.selection);
             await LedgerLines(list2.steps, list2.StartIndex, list2.CScaleSelection);
-            await DisplayAnswers(answerPos);
+            await DisplayAnswers();
             await ChangeProgress();
 
             //Start timer
@@ -480,19 +479,17 @@ namespace SlideRead.Pages
         }
         private async void SelectionMade(string text)//Question has been answered event
         {
-            timer.Stop();
-            if (text == answerPos.ToString())
+            if (text == answerNote)
             {
-                Console.WriteLine($"CORRECT: {answerNote} slide position = {answerPos}");
+                Console.WriteLine($"CORRECT: {answerNote}");
                 score++;
             }
             else
             {
-                Console.WriteLine($"INCORRECT: {answerNote} slide position = {answerPos}");
+                Console.WriteLine($"INCORRECT: {answerNote}");
             }
             if (answeredQuestions == settings.questions)
             {
-                Termination = true;
                 Console.WriteLine($"SCORE: {score}/{settings.questions}");
                 await Device.InvokeOnMainThreadAsync(() =>
                 {

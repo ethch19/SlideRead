@@ -34,6 +34,7 @@ namespace SlideRead.Droid.CustomRenderers
                 var gradientDrawable = new GradientDrawable();
                 gradientDrawable.SetCornerRadius(customLabel.LabelCornerRadius);
                 gradientDrawable.SetColor(customLabel.LabelBackgroundColor.ToAndroid());
+                gradientDrawable.SetAlpha((int)Math.Round(255 * customLabel.LabelBackgroundTransparency));
                 gradientDrawable.SetStroke(customLabel.LabelBorderWidth, customLabel.LabelBorderColor.ToAndroid());
                 Control.SetBackground(gradientDrawable);
                 Control.SetAllCaps(false);

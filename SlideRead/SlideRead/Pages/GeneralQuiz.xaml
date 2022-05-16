@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SlideRead.Pages.GeneralQuiz"
+             xmlns:custom="clr-namespace:SlideRead.Controls"
+             NavigationPage.HasNavigationBar="False">
+    <ContentPage.Content>
+        <Grid x:Name="topGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+            <!--<Grid.Background>
+                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                    <GradientStop Color="#8EA1C8" Offset="0.1"/>
+                    <GradientStop Color="#49376D" Offset="0.7"/>
+                    <GradientStop Color="#281956" Offset="1.0"/>
+                </LinearGradientBrush>
+            </Grid.Background>-->
+            <Image x:Name="Staff" Grid.Row="0" Source="Staff" Scale="0.65" ScaleX="1" Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center"/>
+            <custom:CustomProgressBar x:Name="ProgressBar"  Grid.Row="0" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand" ProgressColor="#4B54AA" Progress="0" ProgressBarCornerRadius="10"/>
+            <StackLayout x:Name="ButtonStackLayout" Grid.Row="1" Orientation="Vertical" Spacing="50">
+                <Label Text="Select the correct note" TextColor="#CAD1A5" FontFamily="Roboto-Light" FontSize="20" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="Start" HorizontalOptions="Center"/>
+                <custom:CustomBtn x:Name="SelectionBtn1" Text="A" ButtonBackgroundColor="#D9DBEF" TextColor="#55445D" ButtonCornerRadius="80" FontFamily="Roboto-Light" WidthRequest="300" HeightRequest="55" HorizontalOptions="Center" VerticalOptions="Center" FontSize="35" Clicked="BtnSelectionMade"/>
+                <custom:CustomBtn x:Name="SelectionBtn2" Text="B" ButtonBackgroundColor="#D9DBEF" TextColor="#55445D" ButtonCornerRadius="80" FontFamily="Roboto-Light" WidthRequest="300" HeightRequest="55" HorizontalOptions="Center" VerticalOptions="Center" FontSize="35" Clicked="BtnSelectionMade"/>
+                <custom:CustomBtn x:Name="SelectionBtn3" Text="C" ButtonBackgroundColor="#D9DBEF" TextColor="#55445D" ButtonCornerRadius="80" FontFamily="Roboto-Light" WidthRequest="300" HeightRequest="55" HorizontalOptions="Center" VerticalOptions="Center" FontSize="35" Clicked="BtnSelectionMade"/>
+                <custom:CustomBtn x:Name="SelectionBtn4" Text="D" ButtonBackgroundColor="#D9DBEF" TextColor="#55445D" ButtonCornerRadius="80" FontFamily="Roboto-Light" WidthRequest="300" HeightRequest="55" HorizontalOptions="Center" VerticalOptions="Center" FontSize="35" Clicked="BtnSelectionMade"/>
+            </StackLayout>
+            <Image x:Name="Clef" Source="BassClef" Scale="0.3" Aspect="AspectFit" TranslationX="-80" TranslationY="-9.5"/>
+            <Image x:Name="LedgerLine" Source="LedgerLine" Scale="0.15" Aspect="AspectFit" TranslationY="70" TranslationX="50" IsVisible="False"/>
+            <Ellipse x:Name="Note" Fill="#FFFFFF" WidthRequest="100" HeightRequest="50" Aspect="Fill" Scale="0.08" TranslationX="90" TranslationY="0"/>
+            <Image Source="Flat" Aspect="AspectFit" Scale="0.16" TranslationX="-25" TranslationY="12"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

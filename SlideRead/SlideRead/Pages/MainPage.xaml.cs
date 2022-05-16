@@ -22,6 +22,10 @@ namespace SlideRead
         {
             await Application.Current.MainPage.Navigation.PushAsync(new Pages.MainQuiz(), false);
         }
+        private async void GeneralBtnClicked(object sender, EventArgs args)
+        {
+            await Application.Current.MainPage.Navigation.PushAsync(new Pages.GeneralQuiz(), false);
+        }
         protected override void OnAppearing()
         {
             base.OnAppearing();

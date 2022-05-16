@@ -16,7 +16,7 @@ using Android.Animation;
 
 namespace SlideRead.Droid
 {
-    [Activity(Theme= "@style/MainTheme.SplashScreen", MainLauncher = true, NoHistory = true, Label = "SplashActivity", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
+    [Activity(Theme= "@style/MainTheme.SplashScreen", MainLauncher = true, NoHistory = true, Label = "SlideRead", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class SplashActivity : Activity, Animator.IAnimatorListener
     {
         protected override void OnCreate(Bundle savedInstanceState)

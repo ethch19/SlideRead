@@ -171,6 +171,7 @@ namespace SlideRead.Pages
             absLayout.RaiseChild(DarkenedLayer);
             absLayout.RaiseChild(scrollListExitBtn);
             absLayout.Children.Add(stacklayout, new Rectangle(new Point(0.5, 0.3), new Size(1, 1)), AbsoluteLayoutFlags.All);
+            //scrollListExitBtn.Layout(new Rectangle(new Point(stacklayout.Width/2+5, stacklayout.Height-10), new Size(scrollListExitBtn.Width, scrollListExitBtn.Height))); //NEED ADJUSTMENT
             btn.IsEnabled = true;
         }
         private void KeyChange(object sender, EventArgs args)
@@ -328,7 +329,7 @@ namespace SlideRead.Pages
                     Console.WriteLine(settings.timelimit);
                     break;
                 case 3:
-                    settings.GetType().GetProperty("clef").SetValue(settings, Enum.Parse(typeof(Classes.Clef), newSetting));
+                    settings.GetType().GetProperty("clef").SetValue(settings, Enum.Parse(typeof(Classes.SLClef), newSetting));
                     Console.WriteLine(settings.clef);
                     break;
                 case 4:
