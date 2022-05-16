@@ -5,6 +5,6 @@
 Android - **Under development**\
 IOS - **Paused**
 
-## Programming Language
+## Programming Languages
 - C#
 - Xaml
