@@ -34,6 +34,7 @@ namespace SlideRead.Pages
             ExpandTrimmedScale();
             TuneScaleInKey();
             DisplayKeySignature();
+            AccidentalAddtion();
             GetNewQuestion();
         }
         protected override void OnAppearing()//Fade animation on start
@@ -375,11 +376,8 @@ namespace SlideRead.Pages
             {
                 return null;
             }
-            else
-            {
-                return null;
-            }
-            
+            List<string> cache1 = keySignature.ConvertSharpFlat(ScaleInKey);
+            return null;
         }
         private async Task DisplayAnswers()//Set answers on buttons
         {

@@ -23,13 +23,16 @@ namespace SlideRead.Pages
         Dictionary<string, Guid> AddedViews = new Dictionary<string, Guid>();
         List<string> CScale = new List<string>(); //Trimmed C scale
         List<string> ScaleInKey = new List<string>(); //Trimmed Scale In Key
+        List<string> ChromScale = new List<string>();
         Timer timer = new Timer();
         bool Termination = false;
         int answerPos = 0;
-        string answerNote = String.Empty;
-        string lastAnswer = String.Empty;
+        string answerNote = string.Empty;
+        string lastAnswer = string.Empty;
         int score = 0;
         int answeredQuestions = 0;
+        string accidentalApplied = "None";
+        bool debugMode = false;
         public MainQuiz()
         {
             InitializeComponent();
@@ -44,6 +47,18 @@ namespace SlideRead.Pages
             topGrid.Opacity = 0;
             topGrid.FadeTo(1, 350);
         }
+        private List<string> ChromaticScale(List<string> trimmedScale)
+        {
+            List<string> result = new List<string>(trimmedScale);
+            for (int i = 0; i < trimmedScale.Count; i++)
+            {
+                if (trimmedScale[i][0] == 'E' || trimmedScale[i][0] == 'B') { continue; }
+                result.Insert(result.IndexOf(trimmedScale[i])+1, trimmedScale[i][0] + "#" + trimmedScale[i][1]);
+            }
+            string s = string.Join(", ", result);
+            Console.WriteLine($"Trimmed Chromatic Scale: {s}");
+            return result;
+        }
         private void ExpandTrimmedScale()//Expand C scale into 7 octaves and shorten according to selected clef
         {
             Random random = new Random();
@@ -52,7 +67,7 @@ namespace SlideRead.Pages
             {
                 iClef = new string[] { "Treble", "Bass", "Tenor" }[random.Next(0, 2)];
             }
-            Console.WriteLine(iClef);
+            Console.WriteLine($"Clef chosen: {iClef}");
             Clef.Source = ImageSource.FromFile(iClef + "Clef.png");
             if (iClef == "Treble")
             {
@@ -81,6 +96,7 @@ namespace SlideRead.Pages
             CScale = new List<string>(subScale);
             string s = string.Join(", ", CScale);
             Console.WriteLine($"Trimmed C Scale: {s}");
+            ChromScale = ChromaticScale(CScale);
         }
         private void TuneScaleInKey()//From C scale, make a scale in key of choice
         {
@@ -123,12 +139,11 @@ namespace SlideRead.Pages
             }
             string s = string.Join(", ", ScaleInKey);
             Console.WriteLine($"Scale In Key: {s}");
-            keySignature.ConvertSharpFlat(ScaleInKey); //Testing purposes
         }
         private async Task DisplayKeySignature()//Set key signatures (flats/sharps)
         {
             //Key Signature
-            int xThreshold = new int[] { 0, 10, 20, 30, 40, 50, 60, 0 }[7 - settings.numOfKey];
+            int xThreshold = new int[] { 0, 10, 20, 30, 40, 50, 60, 0 }[7 - settings.numOfKey]; //How spaced apart each accidental is
             Note.TranslationX = new int[] { 110, 105, 100, 90, 85, 80, 75, 50 }[7 - settings.numOfKey];
             Clef.TranslationX = new int[] { -110, -100, -90, -80, -75, -70, -70, -70 }[7 - settings.numOfKey];
             for (int i = 0; i < settings.numOfKey; i++)
@@ -218,7 +233,128 @@ namespace SlideRead.Pages
                     break;
             }
         }
-        private (string selection, int selectionCount, int slidePos) GetRandomNote()//Get a random note as the answer
+        private string AccidentalAddtion(int selectionCount)
+        {
+            Random random = new Random();
+            string selection = ScaleInKey[selectionCount];
+            string AccidentalSettings = settings.accidentals.ToString();
+            if (random.Next(0, 1) != 0 || AccidentalSettings == "None" || selection == "E2" || selection == "Fb2" || selection == "Bb4" || selection == "A#4")
+            {
+                accidentalApplied = "None";
+                return selection;
+            }
+            if (AccidentalSettings == "Mixed")
+            {
+                AccidentalSettings = (random.Next(0, 1) == 0) ? "Flat" : "Sharp";
+                Console.WriteLine($"Accidental Chosen from Mixed: {AccidentalSettings}");
+            }
+            int chromCount = 0;
+            string newSelection = string.Empty;
+            List<string> convChromScale = keySignature.ConvertSharpFlat(ChromScale);
+            if (selection.Length == 3)
+            {
+                if (selection[1] == '#')
+                {
+                    chromCount = ChromScale.IndexOf(selection);
+                    if (AccidentalSettings == "Flat")
+                    {
+                        newSelection = convChromScale[chromCount - 1];
+                    }
+                    else
+                    {
+                        newSelection = ChromScale[chromCount + 1];
+                    }
+                }
+                else
+                {
+                    chromCount = convChromScale.IndexOf(selection);
+                    if (AccidentalSettings == "Flat")
+                    {
+                        newSelection = convChromScale[chromCount - 1];
+                    }
+                    else
+                    {
+                        newSelection = ChromScale[chromCount + 1];
+                    }
+                }
+            }
+            else
+            {
+                if (AccidentalSettings == "Flat")
+                {
+                    if (selection[0] == 'F') { newSelection = "E" + selection[1]; }
+                    else if (selection[0] == 'C') { newSelection = "B" + (int.Parse(selection[1].ToString()) - 1); }
+                    else { newSelection = selection.Insert(1, "b"); }
+                }
+                else
+                {
+                    if (selection[0] == 'E') { newSelection = "F" + selection[1]; }
+                    else if (selection[0] == 'B') { newSelection = "C" + (int.Parse(selection[1].ToString()) + 1); }
+                    else { newSelection = selection.Insert(1, "#"); }
+                }
+            }
+            accidentalApplied = AccidentalSettings;
+            Console.WriteLine($"Before {accidentalApplied}: {selection}, After {accidentalApplied}: {newSelection}");
+            return newSelection;
+        }
+        private string AccidentalAddtion(int selectionCount, string accidental)
+        {
+            string selection = ScaleInKey[selectionCount];
+            if (selection == "E2" || selection == "Fb2" || selection == "Bb4" || selection == "A#4" || accidental == "None")
+            {
+                accidentalApplied = "None";
+                return selection;
+            }
+            int chromCount = 0;
+            string newSelection = string.Empty;
+            List<string> convChromScale = keySignature.ConvertSharpFlat(ChromScale);
+            if (selection.Length == 3)
+            {
+                if (selection[1] == '#')
+                {
+                    chromCount = ChromScale.IndexOf(selection);
+                    if (accidental == "Flat")
+                    {
+                        newSelection = convChromScale[chromCount - 1];
+                    }
+                    else
+                    {
+                        newSelection = ChromScale[chromCount + 1];
+                    }
+                }
+                else
+                {
+                    chromCount = convChromScale.IndexOf(selection);
+                    if (accidental == "Flat")
+                    {
+                        newSelection = convChromScale[chromCount - 1];
+                    }
+                    else
+                    {
+                        newSelection = ChromScale[chromCount + 1];
+                    }
+                }
+            }
+            else
+            {
+                if (accidental == "Flat")
+                {
+                    if (selection[0] == 'F') { newSelection = "E" + selection[1]; }
+                    else if (selection[0] == 'C') { newSelection = "B" + (int.Parse(selection[1].ToString()) - 1); }
+                    else { newSelection = selection.Insert(1, "b"); }
+                }
+                else
+                {
+                    if (selection[0] == 'E') { newSelection = "F" + selection[1]; }
+                    else if (selection[0] == 'B') { newSelection = "C" + (int.Parse(selection[1].ToString()) + 1); }
+                    else { newSelection = selection.Insert(1, "#"); }
+                }
+            }
+            accidentalApplied = accidental;
+            Console.WriteLine($"Before {accidentalApplied}: {selection}, After {accidentalApplied}: {newSelection}");
+            return newSelection;
+        }
+        private (string selection, string displayNote, int selectionCount, int slidePos) GetRandomNote()//Get a random note as the answer
         {
             //Get random note and slide pos
             Random random = new Random();
@@ -232,11 +368,49 @@ namespace SlideRead.Pages
                     selection = ScaleInKey[selectionCount];
                 }
             }
-            int tempSelectionCount = selectionCount;
+            string displayNote = selection;
+            selection = AccidentalAddtion(selectionCount);
+            int chromCount = 0;
+            if (selection.Length == 3)
+            {
+                if (selection[1] == '#')
+                {
+                    chromCount = ChromScale.IndexOf(selection);
+                }
+                else
+                {
+                    List<string> convChromScale = keySignature.ConvertSharpFlat(ChromScale);
+                    chromCount = convChromScale.IndexOf(selection);
+                }
+            }
+            else
+            {
+                chromCount = ChromScale.IndexOf(selection);
+            }
+            int tempSelectionCount = chromCount;
             int slidePos = 0;
-            List<int> MaxPos= new List<int>() { 7, 7, 5, 4, 3 }; //Always start with E2 as E2 is 7th position. Counts down
+            List<int> MaxPos= new List<int>() { 7, 7, 5, 4, 3, 3, 3}; //Always start with E2 as E2 is 7th position. Counts down
             for (int i = 0; i < MaxPos.Count; i++)
             {
+                if (i == 5)
+                {
+                    switch (tempSelectionCount)
+                    {
+                        case 2:
+                            slidePos = 3;
+                            break;
+                        case 3:
+                            slidePos = 2;
+                            break;
+                        case 4:
+                            slidePos = 1;
+                            break;
+                        default:
+                            slidePos = MaxPos[i] - tempSelectionCount;
+                            break;
+                    }
+                    break;
+                }
                 if (tempSelectionCount + 1 <= MaxPos[i])
                 {
                     slidePos = MaxPos[i] - tempSelectionCount;
@@ -251,7 +425,100 @@ namespace SlideRead.Pages
             answerPos = slidePos;
             answerNote = selection;
             lastAnswer = answerNote;
-            return (selection, selectionCount, slidePos);
+            return (selection, displayNote, selectionCount, slidePos);
+        }
+        private (string selection, string displayNote, int slidePos) GetNote(string selection)//Get the note as the answer
+        {
+            //Get note and slide pos
+            string displayNote = selection;
+            List<string> convScaleInKey = keySignature.ConvertSharpFlat(ScaleInKey);
+            if (!ScaleInKey.Contains(selection) && !convScaleInKey.Contains(selection))
+            {
+                foreach (string key in ScaleInKey)
+                {
+                    if (key.Length > 2 && selection.Length == 2 && key[0] == selection[0] && key[2] == selection[1])
+                    {
+                        displayNote = key;
+                        break;
+                    }
+                    else if  (key.Length == 2 && selection.Length > 2 && key[0] == selection[0] && key[1] == selection[2])
+                    {
+                        displayNote = key;
+                        break;
+                    }
+                }
+                if (selection.Length > 2 && displayNote.Length == 2)
+                {
+                    selection = AccidentalAddtion(ScaleInKey.IndexOf(displayNote), ((selection[1] == '#') ? "Sharp" : "Flat"));
+                }
+                else if (selection.Length == 2 && displayNote.Length > 2)
+                {
+                    Console.WriteLine("Currently doesn't support double-flats or double-sharps");
+                }
+                else
+                {
+                    Console.WriteLine("Some stupid exception idk");
+                }
+            }
+            else
+            {
+                accidentalApplied = "None";
+            }
+            int chromCount = 0;
+            if (selection.Length == 3)
+            {
+                if (selection[1] == '#')
+                {
+                    chromCount = ChromScale.IndexOf(selection);
+                }
+                else
+                {
+                    List<string> convChromScale = keySignature.ConvertSharpFlat(ChromScale);
+                    chromCount = convChromScale.IndexOf(selection);
+                }
+            }
+            else
+            {
+                chromCount = ChromScale.IndexOf(selection);
+            }
+            int slidePos = 0;
+            List<int> MaxPos = new List<int>() { 7, 7, 5, 4, 3, 3, 3 }; //Always start with E2 as E2 is 7th position. Counts down
+            for (int i = 0; i < MaxPos.Count; i++)
+            {
+                if (i == 5)
+                {
+                    switch (chromCount)
+                    {
+                        case 2:
+                            slidePos = 3;
+                            break;
+                        case 3:
+                            slidePos = 2;
+                            break;
+                        case 4:
+                            slidePos = 1;
+                            break;
+                        default:
+                            slidePos = MaxPos[i] - chromCount;
+                            break;
+                    }
+                    break;
+                }
+                if (chromCount + 1 <= MaxPos[i])
+                {
+                    slidePos = MaxPos[i] - chromCount;
+                    Console.WriteLine(selection + ": " + slidePos.ToString());
+                    break;
+                }
+                else
+                {
+                    chromCount -= MaxPos[i];
+                }
+            }
+            answerPos = slidePos;
+            answerNote = selection;
+            lastAnswer = answerNote;
+            return (selection, displayNote, slidePos);
         }
         private async Task<(int steps, int StartIndex, string CScaleSelection)> DisplayNote(string selection)//Move note to correct position
         {
@@ -305,6 +572,10 @@ namespace SlideRead.Pages
                         break;
                     }
                 }
+            }
+            else
+            {
+                await TranslateNote(0, false);
             }
             return (steps, StartIndex, currentNote);
         }
@@ -412,6 +683,25 @@ namespace SlideRead.Pages
                 AnswerDisplay.Text = $"Note: {answerNote}, Slide Pos: {answerPos}";
             });
         }
+        private async Task DisplayAccidental()
+        {
+            if (accidentalApplied == "None") { return; }
+            int yTranslation = (accidentalApplied == "Sharp") ? 0 : 10;
+            Image image = new Image()
+            {
+                Source = ImageSource.FromFile(accidentalApplied + ".png"),
+                Aspect = Aspect.AspectFit,
+                Scale = 0.16,
+                TranslationX = Note.TranslationX - 25,
+                TranslationY = Note.TranslationY - yTranslation,
+                StyleId = accidentalApplied + "Acci"
+            };
+            await Device.InvokeOnMainThreadAsync(() =>
+            {
+                topGrid.Children.Insert(topGrid.Children.Count - 3, image);
+            });
+            AddedViews.Add(image.StyleId, image.Id);
+        }
         private async Task ChangeProgress()//Change Progress bar
         {
             answeredQuestions++;
@@ -443,13 +733,38 @@ namespace SlideRead.Pages
 
             //MainFlow
             var list1 = GetRandomNote();
-            var list2 = await DisplayNote(list1.selection);
+            Console.WriteLine($"displayNote: {list1.displayNote}, selection: {list1.selection}");
+            var list2 = await DisplayNote(list1.displayNote);
+            await DisplayAccidental();
             await LedgerLines(list2.steps, list2.StartIndex, list2.CScaleSelection);
             await DisplayAnswers(answerPos);
             await ChangeProgress();
 
             //Start timer
             timer.Start();
+        }
+        private async void GetNewQuestion(string selection)//Request a new question
+        {
+            //Clears AddedViews except key signatures
+            foreach (KeyValuePair<string, Guid> item in AddedViews.ToList())
+            {
+                if (item.Key.Split('_')[0] != settings.keyFlag.ToString())
+                {
+                    await Device.InvokeOnMainThreadAsync(() =>
+                    {
+                        topGrid.Children.Remove(topGrid.Children.First(x => x.Id == item.Value));
+                    });
+                    AddedViews.Remove(item.Key);
+                }
+            }
+
+            //MainFlow
+            var list1 = GetNote(selection);
+            Console.WriteLine($"displayNote: {list1.displayNote}, selection: {list1.selection}");
+            var list2 = await DisplayNote(list1.displayNote);
+            await DisplayAccidental();
+            await LedgerLines(list2.steps, list2.StartIndex, list2.CScaleSelection);
+            await DisplayAnswers(answerPos);
         }
         private async Task TranslateNote(int steps, bool up)//Move the note in terms of steps, 1 step = up/down a line/space
         {
@@ -471,26 +786,27 @@ namespace SlideRead.Pages
         }
         private void HandleTimerElapsed(object sender, ElapsedEventArgs e)//Question Timed out Event
         {
-            SelectionMade("TimedOut");
+            if (debugMode == true) { return; }
+            SelectionMade("TimedOut", "n/a");
         }
         private void BtnSelectionMade(object sender, EventArgs args)//SelectionButton Pressed Event
         {
             Button btn = (Button)sender;
-            SelectionMade(btn.Text);
+            SelectionMade(btn.Text, "n/a");
         }
-        private async void SelectionMade(string text)//Question has been answered event
+        private async void SelectionMade(string text, string selection)//Question has been answered event
         {
             timer.Stop();
             if (text == answerPos.ToString())
             {
                 Console.WriteLine($"CORRECT: {answerNote} slide position = {answerPos}");
-                score++;
+                if (!debugMode) { score++; }
             }
             else
             {
                 Console.WriteLine($"INCORRECT: {answerNote} slide position = {answerPos}");
             }
-            if (answeredQuestions == settings.questions)
+            if (answeredQuestions == settings.questions && !debugMode)
             {
                 Termination = true;
                 Console.WriteLine($"SCORE: {score}/{settings.questions}");
@@ -499,7 +815,101 @@ namespace SlideRead.Pages
                     Application.Current.MainPage.Navigation.PopAsync(false);
                 });
             }
-            GetNewQuestion();
+            if (!debugMode)
+            {
+                GetNewQuestion();
+            }
+            else
+            {
+                GetNewQuestion(selection);
+            }
+        }
+        private void DebugMode(object sender, EventArgs args)
+        {
+            if (debugMode == false)
+            {
+                debugMode = true;
+                UpButton.IsVisible = true;
+                DownButton.IsVisible = true;
+                AnswerDisplay.IsVisible = true;
+                DebugButton.Text = "HIDE";
+                Classes.IClef clef = clefConfig.First(x => x.Key == settings.clef.ToString()).Value;
+                SelectionMade("DebugMode", clef.MidNote);
+            }
+            else
+            {
+                debugMode = false;
+                UpButton.IsVisible = false;
+                DownButton.IsVisible = false;
+                AnswerDisplay.IsVisible = false;
+                DebugButton.Text = "DEBUG";
+                SelectionMade("QuizMode", "n/a");
+            }
+        }
+        private void NoteDebug(object sender, EventArgs args)
+        {
+            Controls.CustomBtn button = (Controls.CustomBtn)sender;
+            if (button.Text == "˅") //Down
+            {
+                if (answerNote == "E2" || answerNote == "Fb2")
+                {
+                    return;
+                }
+            }
+            else
+            {
+                if (answerNote == "Bb4" || answerNote == "A#4")
+                {
+                    return;
+                }
+            }
+            int chromCount = 0;
+            string newSelection = string.Empty;
+            List<string> convChromScale = keySignature.ConvertSharpFlat(ChromScale);
+            if (answerNote.Length == 3)
+            {
+                if (answerNote[1] == '#')
+                {
+                    chromCount = ChromScale.IndexOf(answerNote);
+                    if (button.Text == "˅") //Down
+                    {
+                        newSelection = convChromScale[chromCount - 1];
+                    }
+                    else
+                    {
+                        newSelection = ChromScale[chromCount + 1];
+                    }
+                }
+                else
+                {
+                    chromCount = convChromScale.IndexOf(answerNote);
+                    if (button.Text == "˅") //Down
+                    {
+                        newSelection = convChromScale[chromCount - 1];
+                    }
+                    else
+                    {
+                        newSelection = ChromScale[chromCount + 1];
+                    }
+                }
+            }
+            else
+            {
+                if (button.Text == "˅") //Down
+                {
+                    if (answerNote[0] == 'F') { newSelection = "E" + answerNote[1]; }
+                    else if (answerNote[0] == 'C') { newSelection = "B" + (int.Parse(answerNote[1].ToString()) - 1); }
+                    else { newSelection = answerNote.Insert(1, "b"); }
+                }
+                else
+                {
+                    if (answerNote[0] == 'E') { newSelection = "F" + answerNote[1]; }
+                    else if (answerNote[0] == 'B') { newSelection = "C" + (int.Parse(answerNote[1].ToString()) + 1); }
+                    else { newSelection = answerNote.Insert(1, "#"); }
+                }
+            }
+            Console.WriteLine($"OldNote: {answerNote}, NewNote: {newSelection}");
+            SelectionMade("DebugMode", newSelection);
         }
     }
 }

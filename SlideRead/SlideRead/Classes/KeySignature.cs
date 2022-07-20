@@ -34,7 +34,7 @@ namespace SlideRead.Classes
                 {
                     ls[index] = s.Replace("#", "b");
                     int newNote = CMajorOctave.IndexOf(s[0].ToString()) + 1;
-                    if (newNote > 6)
+                    if (newNote < 7)
                     {
                         ls[index] = ls[index].Replace(s[0], char.Parse(CMajorOctave[newNote]));
                     }
@@ -45,9 +45,9 @@ namespace SlideRead.Classes
                     }
                 }
             }
-            string a = string.Join(", ", GivenScale);
-            string b = string.Join(", ", ls);
-            Console.WriteLine($"Old Scale: {a}\nNew Scale: {b}");
+            //string a = string.Join(", ", GivenScale);
+            //string b = string.Join(", ", ls);
+            //Console.WriteLine($"Old Scale: {a}\nNew Scale: {b}");
             return ls;
         }
     }

@@ -29,7 +29,10 @@
             <Image x:Name="Clef" Source="BassClef" Scale="0.3" Aspect="AspectFit" TranslationX="-70" TranslationY="-9.5"/>
             <Image x:Name="LedgerLine" Source="LedgerLine" Scale="0.15" Aspect="AspectFit" TranslationY="70" TranslationX="50" IsVisible="False"/>
             <Ellipse x:Name="Note" Fill="#FFFFFF" WidthRequest="100" HeightRequest="50" Aspect="Fill" Scale="0.08" TranslationX="50" TranslationY="0"/>
-            <custom:CustomLabel x:Name="AnswerDisplay" Grid.Row="0" HorizontalOptions="CenterAndExpand" VerticalOptions="End" TextColor="#FFFFFF" LabelCornerRadius="10" LabelBackgroundColor="Black" LabelBackgroundTransparency="0.4" FontFamily="Roboto-Light" FontSize="15" WidthRequest="250" HeightRequest="50" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+            <custom:CustomLabel x:Name="AnswerDisplay" Grid.Row="0" HorizontalOptions="CenterAndExpand" VerticalOptions="End" TextColor="#FFFFFF" LabelCornerRadius="10" LabelBackgroundColor="Black" LabelBackgroundTransparency="0.4" FontFamily="Roboto-Light" FontSize="15" WidthRequest="250" HeightRequest="50" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" IsVisible="False"/>
+            <custom:CustomBtn x:Name="UpButton" Grid.Row="0" Text="˄" ButtonBackgroundColor="#D9DBEF" TextColor="#55445D" ButtonCornerRadius="10" FontFamily="Roboto-Light" WidthRequest="50" HeightRequest="50" HorizontalOptions="End" VerticalOptions="End" FontSize="30" TranslationY="-145" TranslationX="-5" Clicked="NoteDebug" IsVisible="False"/>
+            <custom:CustomBtn x:Name="DownButton" Grid.Row="0" Text="˅" ButtonBackgroundColor="#D9DBEF" TextColor="#55445D" ButtonCornerRadius="10" FontFamily="Roboto-Light" WidthRequest="50" HeightRequest="50" HorizontalOptions="End" VerticalOptions="End" FontSize="30" TranslationY="-85" TranslationX="-5" Clicked="NoteDebug" IsVisible="False"/>
+            <custom:CustomBtn x:Name="DebugButton" Grid.Row="0" Text="DEBUG" ButtonBackgroundColor="#22273d" TextColor="#FFFFFF" ButtonCornerRadius="10" FontFamily="Roboto-Light" WidthRequest="50" HeightRequest="50" HorizontalOptions="End" VerticalOptions="Start" FontSize="15" TranslationY="20" TranslationX="-5" Clicked="DebugMode" IsVisible="True"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>
