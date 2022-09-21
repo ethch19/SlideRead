@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Reflection;
-using System.Text;
 using Xamarin.Essentials;
 
 namespace SlideRead.Classes
@@ -23,7 +21,8 @@ namespace SlideRead.Classes
     {
         Treble,
         Bass,
-        Tenor
+        Tenor,
+        Mixed
     }
     public class Settings
     {
@@ -37,7 +36,6 @@ namespace SlideRead.Classes
 
         public Settings()
         {
-/*            Preferences.Clear();*/
             foreach (PropertyInfo propertyInfo in this.GetType().GetProperties())
             {
                 if (Preferences.ContainsKey(propertyInfo.Name))

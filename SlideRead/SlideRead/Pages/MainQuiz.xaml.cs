@@ -1,12 +1,11 @@
-﻿using System;
-using System.IO;
-using System.Reflection;
+﻿using SlideRead.Controls;
+using System;
 using System.Collections.Generic;
-using System.Timers;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Timers;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using System.Threading.Tasks;
 
 namespace SlideRead.Pages
 {
@@ -53,7 +52,7 @@ namespace SlideRead.Pages
             for (int i = 0; i < trimmedScale.Count; i++)
             {
                 if (trimmedScale[i][0] == 'E' || trimmedScale[i][0] == 'B') { continue; }
-                result.Insert(result.IndexOf(trimmedScale[i])+1, trimmedScale[i][0] + "#" + trimmedScale[i][1]);
+                result.Insert(result.IndexOf(trimmedScale[i]) + 1, trimmedScale[i][0] + "#" + trimmedScale[i][1]);
             }
             string s = string.Join(", ", result);
             Console.WriteLine($"Trimmed Chromatic Scale: {s}");
@@ -65,7 +64,7 @@ namespace SlideRead.Pages
             string iClef = settings.clef.ToString();
             if (iClef == "Mixed")
             {
-                iClef = new string[] { "Treble", "Bass", "Tenor" }[random.Next(0, 2)];
+                iClef = new string[] { "Bass", "Tenor" }[random.Next(0, 2)]; //No treble clef for trombone yet
             }
             Console.WriteLine($"Clef chosen: {iClef}");
             Clef.Source = ImageSource.FromFile(iClef + "Clef.png");
@@ -83,7 +82,7 @@ namespace SlideRead.Pages
                 Clef.Scale = 0.32;
             }
             Classes.IClef clef = clefConfig.First(x => x.Key == settings.clef.ToString()).Value;
-            for (int i =1; i<=keySignature.OctaveNum; i++)
+            for (int i = 1; i <= keySignature.OctaveNum; i++)
             {
                 foreach (string note in keySignature.CMajorOctave)
                 {
@@ -117,13 +116,13 @@ namespace SlideRead.Pages
                     string accidental = OrderOfKey[i];
                     if (accidental.Equals(up))
                     {
-                        ScaleInKey.Add(up+note[1]);
+                        ScaleInKey.Add(up + note[1]);
                         found = true;
                         break;
                     }
                     else if (accidental.Equals(down))
                     {
-                        ScaleInKey.Add(down+note[1]);
+                        ScaleInKey.Add(down + note[1]);
                         found = true;
                         break;
                     }
@@ -150,12 +149,14 @@ namespace SlideRead.Pages
             {
                 List<string> OrderOfKey = (List<string>)keySignature.GetType().GetProperty("OrderOf" + settings.keyFlag).GetValue(keySignature);
                 Classes.IClef clef = clefConfig.First(x => x.Key == settings.clef.ToString()).Value;
+                List<string> MinRange = (List<string>)clef.GetType().GetProperty("MinRange" + settings.keyFlag).GetValue(clef);
                 string currentStep = clef.MidNote.ToString();
-                for (int j = CScale.IndexOf(clef.MinRange[0]); j <= CScale.IndexOf(clef.MinRange[1]); j++)
+                for (int j = int.Parse(MinRange[0][1].ToString()); j <= int.Parse(MinRange[1][1].ToString()); j++)
                 {
+                    Console.WriteLine(j);
                     string checkNote = OrderOfKey[i][0].ToString() + j;
                     int orderIndex = CScale.IndexOf(checkNote);
-                    if (orderIndex < 0 || orderIndex < CScale.IndexOf(clef.MinRange[0]))
+                    if (orderIndex < 0 || orderIndex < CScale.IndexOf(MinRange[0]) || orderIndex > CScale.IndexOf(MinRange[1]))
                     {
                         continue;
                     }
@@ -207,9 +208,9 @@ namespace SlideRead.Pages
                     {
                         Source = ImageSource.FromFile(settings.keyFlag + ".png"),
                         Aspect = Aspect.AspectFit,
-                        Scale = 0.16,
+                        Scale = (settings.keyFlag == Classes.Key.Flat) ? 0.16 : 0.20,
                         TranslationX = (19 * i - 55) + xThreshold,
-                        TranslationY = y,
+                        TranslationY = (settings.keyFlag == Classes.Key.Flat) ? y : y + 10,
                         StyleId = settings.keyFlag + "_" + i.ToString()
                     };
                     await Device.InvokeOnMainThreadAsync(() =>
@@ -389,7 +390,7 @@ namespace SlideRead.Pages
             }
             int tempSelectionCount = chromCount;
             int slidePos = 0;
-            List<int> MaxPos= new List<int>() { 7, 7, 5, 4, 3, 3, 3}; //Always start with E2 as E2 is 7th position. Counts down
+            List<int> MaxPos = new List<int>() { 7, 7, 5, 4, 3, 3, 3 }; //Always start with E2 as E2 is 7th position. Counts down
             for (int i = 0; i < MaxPos.Count; i++)
             {
                 if (i == 5)
@@ -432,30 +433,54 @@ namespace SlideRead.Pages
             //Get note and slide pos
             string displayNote = selection;
             List<string> convScaleInKey = keySignature.ConvertSharpFlat(ScaleInKey);
-            if (!ScaleInKey.Contains(selection) && !convScaleInKey.Contains(selection))
+            Console.WriteLine(selection);
+            if (!ScaleInKey.Contains(selection))
             {
+                Console.WriteLine($"Selection not found in ScaleInKey. Selection: {selection}");
                 foreach (string key in ScaleInKey)
                 {
-                    if (key.Length > 2 && selection.Length == 2 && key[0] == selection[0] && key[2] == selection[1])
+                    if (key[0] == selection[0])
                     {
-                        displayNote = key;
-                        break;
-                    }
-                    else if  (key.Length == 2 && selection.Length > 2 && key[0] == selection[0] && key[1] == selection[2])
-                    {
-                        displayNote = key;
-                        break;
+                        Console.WriteLine($"Key: {key}, Selection: {selection}");
+                        if (key.Length > 2)
+                        {
+                            if (selection.Length == 2 && key[2] == selection[1])
+                            {
+                                displayNote = key;
+                                break;
+                            }
+                            else if (selection.Length > 2 && key[2] == selection[2])
+                            {
+                                displayNote = key;
+                                break;
+                            }
+                            break;
+                        }
+                        else if (key.Length == 2)
+                        {
+                            if (selection.Length == 2 && key[1] == selection[1])
+                            {
+                                displayNote = key;
+                                break;
+                            }
+                            else if (selection.Length > 2 && key[1] == selection[2])
+                            {
+                                displayNote = key;
+                                break;
+                            }
+                        }
                     }
                 }
                 if (selection.Length > 2 && displayNote.Length == 2)
                 {
                     selection = AccidentalAddtion(ScaleInKey.IndexOf(displayNote), ((selection[1] == '#') ? "Sharp" : "Flat"));
                 }
-                else if (selection.Length == 2 && displayNote.Length > 2)
+                else if (selection.Length == 2 && displayNote.Length > 2) //DisplayNote: Bb2, Selection: B2 (Neutral)
                 {
                     Console.WriteLine("Currently doesn't support double-flats or double-sharps");
+                    //selection = AccidentalAddtion(ScaleInKey.IndexOf(displayNote), ((displayNote[1] == '#') ? "Sharp" : "Flat"));
                 }
-                else
+                else //DisplayNote: Eb2, Selection: E3 (Neutral)
                 {
                     Console.WriteLine("Some stupid exception idk");
                 }
@@ -535,7 +560,7 @@ namespace SlideRead.Pages
             else if (selection.Length > 2)
             {
                 EndIndex = CScale.IndexOf(selection.Remove(1, 1));
-                currentNote = selection.Remove(1,1);
+                currentNote = selection.Remove(1, 1);
             }
             else
             {
@@ -646,6 +671,36 @@ namespace SlideRead.Pages
                         AddedViews.Add(image.StyleId, topGrid.Children.First(x => x.StyleId == "LedgerLine" + i.ToString()).Id);
                     }
                 }
+                else if ((steps - 7) % 2 == 0 && steps > 7)
+                {
+                    for (int i = 1; i < Math.Ceiling((double)(steps - 6) / 2) + 1; i++)
+                    {
+                        int yTranslation = 0;
+                        if (selectionCount < StartIndex)
+                        {
+                            yTranslation = (steps - (2 * i) + 1) * 12;
+                        }
+                        else
+                        {
+                            yTranslation = (steps - (2 * i) + 1) * -12;
+                        }
+
+                        Image image = new Image()
+                        {
+                            Source = ImageSource.FromFile("LedgerLine"),
+                            Scale = 0.15,
+                            Aspect = Aspect.AspectFit,
+                            TranslationX = Note.TranslationX,
+                            TranslationY = yTranslation,
+                            StyleId = "LedgerLine" + i.ToString()
+                        };
+                        await Device.InvokeOnMainThreadAsync(() =>
+                        {
+                            topGrid.Children.Insert(topGrid.Children.Count - 2, image);
+                        });
+                        AddedViews.Add(image.StyleId, topGrid.Children.First(x => x.StyleId == "LedgerLine" + i.ToString()).Id);
+                    }
+                }
             }
             else
             {
@@ -740,6 +795,10 @@ namespace SlideRead.Pages
             await DisplayAnswers(answerPos);
             await ChangeProgress();
 
+            for (int i = 1; i < 4; i++)
+            {
+                ButtonStackLayout.FindByName<CustomBtn>("SelectionBtn" + i.ToString()).IsEnabled = true;
+            }
             //Start timer
             timer.Start();
         }
@@ -792,6 +851,11 @@ namespace SlideRead.Pages
         private void BtnSelectionMade(object sender, EventArgs args)//SelectionButton Pressed Event
         {
             Button btn = (Button)sender;
+            for (int i = 1; i < 4; i++)
+            {
+                ButtonStackLayout.FindByName<CustomBtn>("SelectionBtn" + i.ToString()).IsEnabled = false;
+            }
+            Console.WriteLine(SelectionBtn1.IsEnabled);
             SelectionMade(btn.Text, "n/a");
         }
         private async void SelectionMade(string text, string selection)//Question has been answered event
@@ -812,7 +876,7 @@ namespace SlideRead.Pages
                 Console.WriteLine($"SCORE: {score}/{settings.questions}");
                 await Device.InvokeOnMainThreadAsync(() =>
                 {
-                    Application.Current.MainPage.Navigation.PopAsync(false);
+                    Navigation.PushAsync(new ScorePage(score, settings.questions));
                 });
             }
             if (!debugMode)

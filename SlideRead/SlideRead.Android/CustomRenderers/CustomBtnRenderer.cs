@@ -1,19 +1,11 @@
-﻿using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Android.Content;
+using Android.Graphics.Drawables;
+using Android.Text;
 using SlideRead.Controls;
 using SlideRead.Droid.CustomRenderers;
+using System.ComponentModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
-using Android.Graphics.Drawables;
-using System.ComponentModel;
-using Android.Text;
 
 [assembly: ExportRenderer(typeof(CustomBtn), typeof(CustomBtnRenderer))]
 namespace SlideRead.Droid.CustomRenderers

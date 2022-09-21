@@ -1,11 +1,8 @@
-﻿using System;
+﻿using SlideRead.Controls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-using SlideRead.Controls;
 
 namespace SlideRead.Pages
 {
@@ -23,7 +20,7 @@ namespace SlideRead.Pages
         {
             {"questions", new List<string>(){ "10", "15", "20"} },
             {"timelimit", new List<string>(){ "5", "10", "15"} },
-            {"clef", new List<string>(){ "Treble", "Bass", "Tenor", "Mixed"} },
+            {"clef", new List<string>(){ "Bass", "Tenor"} }, //No treble yet or mixed
             {"accidentals", new List<string>(){ "Sharp", "Flat", "Mixed", "None"} },
         };
         readonly Dictionary<String, List<String>> keyDictionary = new Dictionary<string, List<String>>()
@@ -35,14 +32,14 @@ namespace SlideRead.Pages
             { "E/C<sup><small>♯</small></sup>m", new List<string>(){ "Sharp", "4"} },
             { "B/G<sup><small>♯</small></sup>m", new List<string>(){ "Sharp", "5"} },
             { "F<sup><small>♯</small></sup>/D<sup><small>♯</small></sup>m", new List<string>(){ "Sharp", "6"} },
-            { "C<sup><small>♯</small></sup>/A<sup><small>♯</small></sup>m", new List<string>(){ "Sharp", "7"} },
+ //           { "C<sup><small>♯</small></sup>/A<sup><small>♯</small></sup>m", new List<string>(){ "Sharp", "7"} },
             { "F/Dm", new List<string>(){ "Flat", "1"} },
             { "B<sup><small>♭</small></sup>/Gm", new List<string>(){ "Flat", "2"} },
             { "E<sup><small>♭</small></sup>/Cm", new List<string>(){ "Flat", "3"} },
             { "A<sup><small>♭</small></sup>/Fm", new List<string>(){ "Flat", "4"} },
             { "D<sup><small>♭</small></sup>/B<sup><small>♭</small></sup>m", new List<string>(){ "Flat", "5"} },
-            { "G<sup><small>♭</small></sup>/E<sup><small>♭</small></sup>m", new List<string>(){ "Flat", "6"} },
-            { "C<sup><small>♭</small></sup>/A<sup><small>♭</small></sup>m", new List<string>(){ "Flat", "7"} }
+            { "G<sup><small>♭</small></sup>/E<sup><small>♭</small></sup>m", new List<string>(){ "Flat", "6"} }
+ //           { "C<sup><small>♭</small></sup>/A<sup><small>♭</small></sup>m", new List<string>(){ "Flat", "7"} }
         };
         public SettingsPage()
         {
@@ -112,8 +109,8 @@ namespace SlideRead.Pages
             };
             Grid grid = new Grid
             {
-                ColumnDefinitions = 
-                { 
+                ColumnDefinitions =
+                {
                     new ColumnDefinition {Width = new GridLength(1, GridUnitType.Star)},
                     new ColumnDefinition {Width = new GridLength(4, GridUnitType.Star)}
                 },
@@ -254,7 +251,7 @@ namespace SlideRead.Pages
                 StyleId = settingOptions.Keys.ToList()[interval] + "Dp"
             };
             List<String> tempSelectionPossibilities = SelectionPossibilities.First(x => x.Key == settingOptions.Keys.ToList()[interval]).Value.Where(y => y != btn.Text).ToList();
-            if (interval == 2 || interval == 3)
+            if (interval == 3) //interval == 2 || ==> For when you decide to add Tenor clef back
             {
                 for (int i = 1; i < 4; i++)
                 {
@@ -273,6 +270,23 @@ namespace SlideRead.Pages
                     customBtn.Text = tempSelectionPossibilities[i - 1];
                     stacklayoutTemp.Children.Add(customBtn);
                 }
+            }
+            else if (interval == 2)
+            {
+                CustomBtn customBtn = new CustomBtn()
+                {
+                    ButtonBackgroundColor = Color.FromHex("#AE85C2"),
+                    ButtonBorderWidth = 8,
+                    ButtonCornerRadius = 30,
+                    HeightRequest = 30,
+                    WidthRequest = 95,
+                    TextColor = Color.FromHex("#FFFFFF"),
+                    FontFamily = "Roboto-Medium"
+                };
+                customBtn.StyleId = "SelectionButton" + "1";
+                customBtn.Clicked += SelectionMade;
+                customBtn.Text = tempSelectionPossibilities[0];
+                stacklayoutTemp.Children.Add(customBtn);
             }
             else
             {

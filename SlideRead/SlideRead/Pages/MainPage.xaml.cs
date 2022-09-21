@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 namespace SlideRead
 {
     public partial class MainPage : ContentPage
@@ -16,11 +10,15 @@ namespace SlideRead
         }
         private async void SettingsBtnClicked(object sender, EventArgs args)
         {
+            SettingsButton.IsEnabled = false;
             await Application.Current.MainPage.Navigation.PushAsync(new Pages.SettingsPage(), false);
+            SettingsButton.IsEnabled = true;
         }
         private async void TromboneBtnClicked(object sender, EventArgs args)
         {
+            TromboneButton.IsEnabled = false;
             await Application.Current.MainPage.Navigation.PushAsync(new Pages.MainQuiz(), false);
+            TromboneButton.IsEnabled = true;
         }
         private async void GeneralBtnClicked(object sender, EventArgs args)
         {

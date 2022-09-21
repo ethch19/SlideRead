@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace SlideRead.Controls
 {
     public class CustomStackLayout : StackLayout
     {
-        public static readonly BindableProperty CustomCornerRadiusProperty = BindableProperty.Create("CornerRadius", typeof(CornerRadius), typeof(CustomStackLayout), new CornerRadius(0,0,0,0));
-        
+        public static readonly BindableProperty CustomCornerRadiusProperty = BindableProperty.Create("CornerRadius", typeof(CornerRadius), typeof(CustomStackLayout), new CornerRadius(0, 0, 0, 0));
+
         public CornerRadius SLCornerRadius
         {
             get { return (CornerRadius)GetValue(CustomCornerRadiusProperty); }

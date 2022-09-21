@@ -1,12 +1,10 @@
 ﻿using System;
-using System.IO;
-using System.Reflection;
 using System.Collections.Generic;
-using System.Timers;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Timers;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using System.Threading.Tasks;
 
 namespace SlideRead.Pages
 {
@@ -133,12 +131,13 @@ namespace SlideRead.Pages
             {
                 List<string> OrderOfKey = (List<string>)keySignature.GetType().GetProperty("OrderOf" + settings.keyFlag).GetValue(keySignature);
                 Classes.IClef clef = clefConfig.First(x => x.Key == settings.clef.ToString()).Value;
+                List<string> MinRange = (List<string>)clef.GetType().GetProperty("MinRange" + settings.keyFlag).GetValue(clef);
                 string currentStep = clef.MidNote.ToString();
-                for (int j = CScale.IndexOf(clef.MinRange[0]); j <= CScale.IndexOf(clef.MinRange[1]); j++)
+                for (int j = CScale.IndexOf(MinRange[0]); j <= CScale.IndexOf(MinRange[1]); j++)
                 {
                     string checkNote = OrderOfKey[i][0].ToString() + j;
                     int orderIndex = CScale.IndexOf(checkNote);
-                    if (orderIndex < 0 || orderIndex < CScale.IndexOf(clef.MinRange[0]))
+                    if (orderIndex < 0 || orderIndex < CScale.IndexOf(MinRange[0]))
                     {
                         continue;
                     }
@@ -360,7 +359,7 @@ namespace SlideRead.Pages
         {
             Random random = new Random();
             string AccidentalSettings = settings.accidentals.ToString();
-            if (random.Next(0,1) != 0 || AccidentalSettings == "None")
+            if (random.Next(0, 1) != 0 || AccidentalSettings == "None")
             {
                 return null;
             }

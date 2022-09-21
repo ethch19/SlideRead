@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace SlideRead.Classes
 {
@@ -8,6 +6,7 @@ namespace SlideRead.Classes
     {
         string MidNote { get; }
         List<string> MaxRange { get; }
-        List<string> MinRange { get; }
+        List<string> MinRangeSharp { get; }
+        List<string> MinRangeFlat { get; }
     }
 }

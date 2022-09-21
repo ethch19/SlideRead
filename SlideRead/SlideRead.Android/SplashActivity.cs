@@ -1,22 +1,14 @@
-﻿using Android.App;
+﻿using Android.Animation;
+using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Transitions;
-using Android.Runtime;
 using Android.Views;
-using Android.Widget;
-using AndroidX.Core.View;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Com.Airbnb.Lottie;
-using Android.Animation;
 
 namespace SlideRead.Droid
 {
-    [Activity(Theme= "@style/MainTheme.SplashScreen", MainLauncher = true, NoHistory = true, Label = "SlideRead", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
+    [Activity(Theme = "@style/MainTheme.SplashScreen", MainLauncher = true, NoHistory = true, Label = "SlideRead", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class SplashActivity : Activity, Animator.IAnimatorListener
     {
         protected override void OnCreate(Bundle savedInstanceState)
@@ -28,9 +20,9 @@ namespace SlideRead.Droid
             }
             Window.AddFlags(WindowManagerFlags.Fullscreen);
             Window.AddFlags(WindowManagerFlags.TranslucentNavigation);
-            
+
             SetContentView(Resource.Layout.SplashLayout);
-            if((int)Build.VERSION.SdkInt >= 30)
+            if ((int)Build.VERSION.SdkInt >= 30)
             {
                 Window.SetDecorFitsSystemWindows(true);
                 IWindowInsetsController insetsController = Window.InsetsController;
